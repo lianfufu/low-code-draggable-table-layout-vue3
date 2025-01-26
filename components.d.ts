@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ElButton: typeof import('element-plus/es')['ElButton']
     McImg: typeof import('./src/components/custom-components/McImg/index.vue')['default']
     PageBody: typeof import('./src/components/PageBody.vue')['default']
     PageHeader: typeof import('./src/components/PageHeader.vue')['default']
