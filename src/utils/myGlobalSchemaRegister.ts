@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import {useStore} from "@/store";
 
 export function initCustomComponentsConfig() {
     const files = require.context('@/components/custom-components', true,/component.json$/);
@@ -11,7 +11,10 @@ export function initCustomComponentsConfig() {
         fields[name] = originData.fields;
         data.push(getSchemaDefaultValue(originData));
     });
-
+    const store=useStore();
+    store.initializing=data;
+    store.fields=fields;
+    // console.log(useStore(),"store");
     // Vue.prototype.$fields = fields
     // vue.$store.commit('setFields', fields);
     // Vue.prototype.$initializing = data
