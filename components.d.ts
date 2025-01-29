@@ -7,11 +7,20 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ControlNestWidget: typeof import('./src/components/control/ControlNestWidget.vue')['default']
+    CustomSchemaTemplate: typeof import('./src/components/control/CustomSchemaTemplate.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
-    McImg: typeof import('./src/components/custom-components/McImg/index.vue')['default']
+    ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElSlider: typeof import('element-plus/es')['ElSlider']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
+    LabelWrapper: typeof import('./src/components/custom-schema-template/LabelWrapper.vue')['default']
+    McImg: typeof import('./src/components/custom-components/McImg/McImg.vue')['default']
     PageBody: typeof import('./src/components/PageBody.vue')['default']
     PageHeader: typeof import('./src/components/PageHeader.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SchemaNumber: typeof import('./src/components/custom-schema-template/components/SchemaNumber/SchemaNumber.vue')['default']
+    SchemaUpload: typeof import('./src/components/custom-schema-template/components/SchemaUpload/SchemaUpload.vue')['default']
+    WidgetShape: typeof import('./src/components/control/WidgetShape.vue')['default']
   }
 }

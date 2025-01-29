@@ -71,10 +71,15 @@
         }
     }
 }
-
-::v-deep .el-slider__runway {
-    height: 4px;
-    margin-right: 90px !important; /*no*/
+:deep(.el-input){
+    .el-input__wrapper{
+        padding: 0 !important;
+    }
+}
+:deep(.el-slider__runway) {
+    .el-input__wrapper{
+        padding: 0 !important;
+    }
 }
 
 ::v-deep .el-slider__bar {

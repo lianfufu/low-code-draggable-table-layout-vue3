@@ -5,13 +5,14 @@ import router from './router'
 import 'element-plus/dist/index.css'
 import { createPinia } from 'pinia'
 import draggable from "vuedraggable";
-import _ from "lodash";
-import globalMethods from "@/utils/globalMethods";
+import {registerCustomComponents} from "@/utils/globalRegister";
 
 import  {initCustomComponentsConfig} from "@/utils/myGlobalSchemaRegister";
 
 
-const app = createApp(App).use(globalMethods).use(router).use(createPinia());
+const app = createApp(App).use(router).use(createPinia());
 initCustomComponentsConfig();
+registerCustomComponents(app,require.context('@/components', true, /.vue/));
+
 app.component("draggable",draggable);
 app.mount('#app');
