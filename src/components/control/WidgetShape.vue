@@ -1,10 +1,10 @@
 <template>
   <div class="widget-shape drag" @click.stop="setCurComponent">
     <div class="operate-bar">
-      <div class="f14" v-show="isSelected" @click="doDeleteComponent">
+      <div class="f14" v-show="isSelected" @click.stop="doDeleteComponent">
         x
       </div>
-      <div class="f14" v-show="!isSelected">
+      <div class="f14" v-show="!isSelected" @click.stop="()=>{}">
         {{ name }}
       </div>
     </div>

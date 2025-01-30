@@ -89,9 +89,12 @@ watch(list,(value, oldValue, onCleanup)=>{
 });
 
 function deleteWidget(component){
+  console.log("执行删除失败-前半部");
   list.value.splice(list.value.indexOf(component),1);
   store.curComponent=null;
+  console.log(store.curComponent);
   emits("updateTableChildData",component);
+  console.log("执行删除失败-后半部");
 }
 </script>
 

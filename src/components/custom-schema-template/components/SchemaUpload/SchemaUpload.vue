@@ -21,9 +21,9 @@ import useSchemaData from '@/hooks/useSchemaBasicData';
 // 使用自定义的 hook 来获取 props
 const props = defineProps({
   ...schemaPropsDef,
-  value:{type:String,default:""}
+  modelValue:{type:String,default:""}
 });
-const emits=defineEmits(["change","input"]);
+const emits=defineEmits(["update:modelValue"]);
 const { myValue, myOptions } = useSchemaData(props,emits);
 
 import { ref } from 'vue'

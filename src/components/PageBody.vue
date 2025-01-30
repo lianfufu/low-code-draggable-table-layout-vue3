@@ -45,7 +45,7 @@
 
 <script setup lang="ts">
 import JsonViewer from "vue-json-viewer"
-import {computed, ref} from "vue";
+import {computed, ref, watch} from "vue";
 import {useStore} from "@/store";
 import _ from "lodash";
 import {getRandomCode} from "@/utils/globalMethods";
@@ -58,6 +58,12 @@ const initializing=computed(()=>{
 });
 const curComponent=computed(()=>{
   return store.curComponent;
+});
+watch(()=>curComponent.value,()=>{
+  console.log(curComponent.value,"curComponent的值发生了变化");
+},{
+  immediate:true,
+  deep:true
 });
 const curFields=computed(()=>{
   return store.curFields;
