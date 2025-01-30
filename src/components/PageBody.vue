@@ -21,16 +21,16 @@
     </div>
     <div class="control-page">
       <div class="panel">
-<!--        <div class="panel-content" @mousedown="eventTargetSourceIsTD">-->
-<!--          <control-nest-widget :widgets.sync="widgets"/>-->
-<!--        </div>-->
+        <div class="panel-content" @mousedown="eventTargetSourceIsTD">
+          <control-nest-widget v-model="widgets"/>
+        </div>
       </div>
     </div>
     <div class="control-config">
-<!--      <custom-schema-template-->
-<!--          v-if="curComponent"-->
-<!--          :component="curComponent"-->
-<!--          :curFields="curFields"/>-->
+      <custom-schema-template
+          v-if="curComponent"
+          :component="curComponent"
+          :curFields="curFields"/>
       <div class="widget-config-source">
         <span style="color:dodgerblue" class="f13">物料数据：</span>
         <json-viewer v-if="curComponent"
@@ -81,7 +81,7 @@ function eventTargetSourceIsTD(){
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .body{
   display: flex;
   margin-top: 58px;
