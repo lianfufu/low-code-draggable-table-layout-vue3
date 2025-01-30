@@ -10,7 +10,8 @@ export const useStore = defineStore('main', () => {
         if(curComponent.value?.component==="McImg"||
             curComponent.value?.component==="McTab"||
             curComponent.value?.component==="McTable"||
-            curComponent.value?.component==="McTitle"){
+            curComponent.value?.component==="McTitle"||
+            curComponent.value?.component==="McContainer"){
             if(curComponent.value?.component&&fields.value[curComponent.value.component]){
                 if(fields.value){
                     return fields.value[curComponent.value.component];

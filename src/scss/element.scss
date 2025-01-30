@@ -76,6 +76,9 @@
         padding: 0 !important;
     }
 }
+:deep(.el-input__inner){
+    padding-left: 10px !important;
+}
 :deep(.el-slider__runway) {
     .el-input__wrapper{
         padding: 0 !important;
