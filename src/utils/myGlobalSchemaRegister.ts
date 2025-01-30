@@ -14,7 +14,6 @@ export function initCustomComponentsConfig() {
     const store=useStore();
     store.initializing=data;
     store.fields=fields;
-    console.log(data,fields);
     // console.log(useStore(),"store");
     // Vue.prototype.$fields = fields
     // vue.$store.commit('setFields', fields);

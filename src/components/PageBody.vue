@@ -21,16 +21,16 @@
     </div>
     <div class="control-page">
       <div class="panel">
-        <div class="panel-content" @mousedown="eventTargetSourceIsTD">
-          <control-nest-widget v-model="widgets"/>
-        </div>
+<!--        <div class="panel-content" @mousedown="eventTargetSourceIsTD">-->
+<!--          <control-nest-widget :widgets.sync="widgets"/>-->
+<!--        </div>-->
       </div>
     </div>
     <div class="control-config">
-      <custom-schema-template
-          v-if="curComponent"
-          :component="curComponent"
-          :curFields="curFields"/>
+<!--      <custom-schema-template-->
+<!--          v-if="curComponent"-->
+<!--          :component="curComponent"-->
+<!--          :curFields="curFields"/>-->
       <div class="widget-config-source">
         <span style="color:dodgerblue" class="f13">物料数据：</span>
         <json-viewer v-if="curComponent"
@@ -45,7 +45,7 @@
 
 <script setup lang="ts">
 import JsonViewer from "vue-json-viewer"
-import {computed, ref, watch} from "vue";
+import {computed, ref} from "vue";
 import {useStore} from "@/store";
 import _ from "lodash";
 import {getRandomCode} from "@/utils/globalMethods";
@@ -58,12 +58,6 @@ const initializing=computed(()=>{
 });
 const curComponent=computed(()=>{
   return store.curComponent;
-});
-watch(()=>curComponent.value,()=>{
-  console.log(curComponent.value,"curComponent的值发生了变化");
-},{
-  immediate:true,
-  deep:true
 });
 const curFields=computed(()=>{
   return store.curFields;
@@ -87,7 +81,7 @@ function eventTargetSourceIsTD(){
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .body{
   display: flex;
   margin-top: 58px;
