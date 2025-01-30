@@ -20,23 +20,11 @@ export const useStore = defineStore('main', () => {
             return curStateFields.value;
         }
     });
-    // function setCurComponent(state:any, curComponent:any){
-    //     curComponent. = curComponent;
-    // }
-    // function setFields(state:any, fields:any){
-    //     state.fields = fields;
-    // }
-    // function setCurFields(state:any, curFields:any){
-    //     state.curFields = curFields;
-    // }
     return {
         initializing,
         fields,
         curComponent,
         curStateFields,
         curFields,
-        // setFields,
-        // setCurFields,
-        // setCurComponent
     }
 })
