@@ -11,6 +11,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Schema',
     component: () => import("@/views/schema.vue")
   },
+  {
+    path: '/resizecolumn',
+    name: 'ResizeColumn',
+    component: () => import("@/views/ResizeColumn.vue")
+  }
 ]
 
 const router = createRouter({
