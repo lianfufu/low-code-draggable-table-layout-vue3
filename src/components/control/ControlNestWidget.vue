@@ -1,7 +1,7 @@
 <template>
   <draggable
       :class="isWidget?'nest-widget-height':'outer-widget-height'"
-      v-model="list"
+      v-model="writableList"
       ghostClass="ghost"
       chosenClass="chosen"
       selector="selector"
@@ -12,9 +12,9 @@
     <template #item="{element,index}">
       <WidgetShape v-if="element.component!=='MCTextContainer'" :cur-component="element" :key="element.id" v-bind="element" @deleteWidget="deleteWidget">
         <component v-if="element.component!=='McTable'&&element.component!=='MCTextContainer'" :is="element.component" v-bind="element">
-          <ControlNestWidget :isWidget="true" v-model="element.children"></ControlNestWidget>
+          <ControlNestWidget :isWidget="true" @update:list="(value)=>{element.children=value}" :list="element.children"></ControlNestWidget>
         </component>
-        <component v-else-if="element.component==='McTable'" :is="element.component" v-bind="element" :colCount.sync="element.colCount" :rowCount.sync="element.rowCount" :children.sync="element.children"/>
+        <component v-else-if="element.component==='McTable'" :is="element.component" v-bind="element" :colCount="element.colCount" @update:colCount="(value)=>{element.colCount=value}" :rowCount="element.rowCount" @update:rowCount="(value)=>{element.rowCount=value}" :children="element.children" @update:children="(value)=>{element.children=value}"/>
       </WidgetShape>
     </template>
   </draggable>
@@ -22,27 +22,37 @@
 
 <script setup lang="ts">
 import {useStore} from "@/store";
-import {watch} from "vue";
+import {ref, watch} from "vue";
 
-const emits=defineEmits(["updateTableChildData"]);
+const emits=defineEmits(["updateTableChildData","update:list"]);
 const props=withDefaults(defineProps<{
   isWidget:boolean;
+  list:any[];
   cellRowIndex:number;
   cellColIndex:number;
   cellRowSpan:number;
   cellColSpan:number;
 }>(),{
   isWidget:false,
+  list:()=>[],
   cellRowIndex:Number.NaN,
   cellColIndex:Number.NaN,
   cellRowSpan:Number.NaN,
   cellColSpan:Number.NaN,
 });
-const list=defineModel();
-const store=useStore();
+// const list=defineModel();
+// const list=ref<any[]>([]);
 
-watch(list,(value, oldValue, onCleanup)=>{
-  //当数据是为了列表进行服务的，拖进来新的对象的时候，记录要拖入的目标单元格
+const store=useStore();
+const writableList=ref<any[]>([]);
+
+watch(()=>props.list,(value, oldValue, onCleanup)=>{
+  writableList.value=value;
+},{
+  immediate: true,
+  deep:true
+});
+watch(()=>writableList.value,(value)=>{//当数据是为了列表进行服务的，拖进来新的对象的时候，记录要拖入的目标单元格
   if(!Number.isNaN(props.cellColIndex)&&!Number.isNaN(props.cellRowIndex)){
     console.log("提前走到了forEach中？",props.cellColIndex,props.cellRowIndex);
     value.forEach(item=>{
@@ -79,18 +89,18 @@ watch(list,(value, oldValue, onCleanup)=>{
       const mcTextContainerIndex=value.findIndex(item=>item.component==='MCTextContainer');
       if(mcTextContainerIndex!==-1){
         console.log("执行了移除",mcTextContainerIndex,value,value.filter(item=>item.component==='MCTextContainer'));
-        list.value.splice(mcTextContainerIndex,1);//移入单元格其他可拖拽元素后，单元格的MCTextContainer类型的item将被移除
+        writableList.value.splice(mcTextContainerIndex,1);//移入单元格其他可拖拽元素后，单元格的MCTextContainer类型的item将被移除
       }
     }
   }
+  emits("update:list",value);
 },{
-  immediate: true,
-  deep:true
+  deep:true,
 });
 
 function deleteWidget(component){
   console.log("执行删除失败-前半部");
-  list.value.splice(list.value.indexOf(component),1);
+  writableList.value.splice(writableList.value.indexOf(component),1);
   store.curComponent=null;
   console.log(store.curComponent);
   emits("updateTableChildData",component);

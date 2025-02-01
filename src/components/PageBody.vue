@@ -22,7 +22,7 @@
     <div class="control-page">
       <div class="panel">
         <div class="panel-content" @mousedown="eventTargetSourceIsTD">
-          <control-nest-widget v-model="widgets"/>
+          <control-nest-widget :list="widgets" @update:list="doUpdateList"/>
         </div>
       </div>
     </div>
@@ -51,7 +51,7 @@ import _ from "lodash";
 import {getRandomCode} from "@/utils/globalMethods";
 
 const store=useStore();
-const widgets=ref<Array>([]);
+const widgets=ref<any[]>([]);
 const isClickedTD=ref<boolean>(false);
 const initializing=computed(()=>{
   return store.initializing;
@@ -78,6 +78,10 @@ function dropEnd(event){
 function eventTargetSourceIsTD(){
   isClickedTD.value = event.target.nodeName === "TD";
   console.log(isClickedTD.value,"冒泡出来了down");
+}
+
+function doUpdateList(list:any){
+  widgets.value=list;
 }
 </script>
 
