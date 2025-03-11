@@ -1,5 +1,5 @@
 //计算2个数的最大公因数
-function gcd(a, b) {
+function gcd(a:number, b:number):number {
     // 欧几里得算法计算GCD
     while (b !== 0) {
         let temp = b;
@@ -10,7 +10,7 @@ function gcd(a, b) {
 }
 
 //计算2个数的最小公倍数
-export const lcm=(a, b)=> {
+export const lcm=(a:number, b:number): number=> {
     if (a === 0 || b === 0) {
         return 0; // 如果其中一个数为0，则LCM为0
     }

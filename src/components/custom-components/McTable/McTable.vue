@@ -99,7 +99,7 @@ const props=defineProps({
   },
   globalCellBgc: {
     type: String,
-    default: "globalCellBgc"//全局单元格样式
+    default: "#fff"//全局单元格样式
   }
 });
 // const emits=defineEmits(["update:colCount","update:rowCount","update:children"]);
@@ -117,66 +117,141 @@ onMounted(()=>{
 const curComponent=computed(()=>{
   return store.curComponent;
 });
-const tableDataArr2=computed(()=>{
-  // if(!mytable||!mytable.value){
-  //   console.log("[][]前",mytable);
-  //   return [[]];
-  // }
-  console.log("[][]后",mytable);
-  const res = [];
-  const tdRowColIndexToRemove = [];
-  for (let i = 0; i < props.rowCount; i++) {
-    res[i] = [];
-    for (let j = 0; j < props.colCount; j++) {
-      // 初始化 res[i][j] 为一个空数组
-      res[i][j] = [];
-      //判断当前遍历的i，j是否属于被覆盖的单元格索引
-      const matched = tdRowColIndexToRemove.findIndex(item => item.rowIndex === i && item.colIndex === j);
-      if (matched !== -1) {
+const tableDataArr2=ref([[]]);
+const isNeedUpateTableDataArr2=ref(true);
+watch(()=>[props.rowCount,props.colCount,reactiveData.tabData],(value)=>{
+  if(isNeedUpateTableDataArr2.value){
+    console.log("[][]后",mytable);
+
+    const isHasYouZhi=reactiveData.tabData.filter(item=>item.rowIndex==13&&item.colIndex==0&&item.rowSpan==1&&item.colSpan==4);
+    if(isHasYouZhi&&isHasYouZhi.length>0){
+      console.log(isHasYouZhi,isHasYouZhi[0].rowIndex,isHasYouZhi[0].colIndex,isHasYouZhi[0].rowSpan,isHasYouZhi[0].colSpan,"isHasYouZhi");
+    }
+
+    const res = [];
+    const tdRowColIndexToRemove = [];
+    for (let i = 0; i < props.rowCount; i++) {
+      res[i] = [];
+      for (let j = 0; j < props.colCount; j++) {
+        // 初始化 res[i][j] 为一个空数组
         res[i][j] = [];
-        tdRowColIndexToRemove.splice(matched, 1);
-        continue;
-      }
-      //获取component.json中预定义的匹配rowindex和colindex的项
-      const matchedChild = reactiveData.tabData.filter(item => item.rowIndex === i && item.colIndex === j);
-      if (matchedChild && matchedChild.length > 0) {
-        if (matchedChild.length === 1) {
-          const first = matchedChild[0];
-          first.id = getRandomCode(8);
-          res[i][j] = [first];
-        } else {
-          res[i][j] = matchedChild;
+        //判断当前遍历的i，j是否属于被覆盖的单元格索引
+        const matched = tdRowColIndexToRemove.findIndex(item => item.rowIndex === i && item.colIndex === j);
+        if (matched !== -1) {
+          res[i][j] = [];
+          tdRowColIndexToRemove.splice(matched, 1);
+          continue;
         }
-        const rowSpan = matchedChild[0].rowSpan;//认为多个同index的单元格的rowSpan数据一致
-        const colSpan = matchedChild[0].colSpan;//认为多个同index的单元格的colSpan数据一致
-        if (rowSpan !== 1 || colSpan !== 1) {
-          for (let k = i; k < rowSpan + i; k++) {
-            for (let l = j; l < colSpan + j; l++) {
-              if (k === i && l === j) {
-                continue;
+        //获取component.json中预定义的匹配rowindex和colindex的项
+        const matchedChild = reactiveData.tabData.filter(item => item.rowIndex === i && item.colIndex === j);
+        if (matchedChild && matchedChild.length > 0) {
+          if (matchedChild.length === 1) {
+            const first = matchedChild[0];
+            // first.id = getRandomCode(8);
+            res[i][j] = [first];
+          } else {
+            res[i][j] = matchedChild;
+          }
+          const rowSpan = matchedChild[0].rowSpan;//认为多个同index的单元格的rowSpan数据一致
+          const colSpan = matchedChild[0].colSpan;//认为多个同index的单元格的colSpan数据一致
+          if (rowSpan !== 1 || colSpan !== 1) {
+            for (let k = i; k < rowSpan + i; k++) {
+              for (let l = j; l < colSpan + j; l++) {
+                if (k === i && l === j) {
+                  continue;
+                }
+                tdRowColIndexToRemove.push({
+                  rowIndex: k,
+                  colIndex: l
+                });
               }
-              tdRowColIndexToRemove.push({
-                rowIndex: k,
-                colIndex: l
-              });
             }
           }
+        } else {
+          res[i][j] = [{
+            id: getRandomCode(8),
+            component: "MCTextContainer",
+            rowIndex: i,
+            colIndex: j,
+            rowSpan: 1,
+            colSpan: 1,
+          }];
         }
-      } else {
-        res[i][j] = [{
-          id: getRandomCode(8),
-          component: "MCTextContainer",
-          rowIndex: i,
-          colIndex: j,
-          rowSpan: 1,
-          colSpan: 1,
-        }];
       }
     }
+    console.log("最新的tableDataArr2",res);
+    tableDataArr2.value=res;
   }
-  console.log("最新的tableDataArr2",res);
-  return res;
+},{
+  deep:true,
+  immediate:true
 });
+// const tableDataArr3=computed(()=>{
+//   // if(!mytable||!mytable.value){
+//   //   console.log("[][]前",mytable);
+//   //   return [[]];
+//   // }
+//   console.log("[][]后",mytable);
+//
+//   const isHasYouZhi=reactiveData.tabData.filter(item=>item.rowIndex==13&&item.colIndex==0&&item.rowSpan==1&&item.colSpan==4);
+//   if(isHasYouZhi&&isHasYouZhi.length>0){
+//     console.log(isHasYouZhi,isHasYouZhi[0].rowIndex,isHasYouZhi[0].colIndex,isHasYouZhi[0].rowSpan,isHasYouZhi[0].colSpan,"isHasYouZhi");
+//   }
+//
+//   const res = [];
+//   const tdRowColIndexToRemove = [];
+//   for (let i = 0; i < props.rowCount; i++) {
+//     res[i] = [];
+//     for (let j = 0; j < props.colCount; j++) {
+//       // 初始化 res[i][j] 为一个空数组
+//       res[i][j] = [];
+//       //判断当前遍历的i，j是否属于被覆盖的单元格索引
+//       const matched = tdRowColIndexToRemove.findIndex(item => item.rowIndex === i && item.colIndex === j);
+//       if (matched !== -1) {
+//         res[i][j] = [];
+//         tdRowColIndexToRemove.splice(matched, 1);
+//         continue;
+//       }
+//       //获取component.json中预定义的匹配rowindex和colindex的项
+//       const matchedChild = reactiveData.tabData.filter(item => item.rowIndex === i && item.colIndex === j);
+//       if (matchedChild && matchedChild.length > 0) {
+//         if (matchedChild.length === 1) {
+//           const first = matchedChild[0];
+//           first.id = getRandomCode(8);
+//           res[i][j] = [first];
+//         } else {
+//           res[i][j] = matchedChild;
+//         }
+//         const rowSpan = matchedChild[0].rowSpan;//认为多个同index的单元格的rowSpan数据一致
+//         const colSpan = matchedChild[0].colSpan;//认为多个同index的单元格的colSpan数据一致
+//         if (rowSpan !== 1 || colSpan !== 1) {
+//           for (let k = i; k < rowSpan + i; k++) {
+//             for (let l = j; l < colSpan + j; l++) {
+//               if (k === i && l === j) {
+//                 continue;
+//               }
+//               tdRowColIndexToRemove.push({
+//                 rowIndex: k,
+//                 colIndex: l
+//               });
+//             }
+//           }
+//         }
+//       } else {
+//         res[i][j] = [{
+//           id: getRandomCode(8),
+//           component: "MCTextContainer",
+//           rowIndex: i,
+//           colIndex: j,
+//           rowSpan: 1,
+//           colSpan: 1,
+//         }];
+//       }
+//     }
+//   }
+//   console.log("最新的tableDataArr2",res);
+//   return res;
+// });
 watch(()=>tableDataArr2.value,(value)=>{
   console.log("最新的tableDataArr2",value);
 })
@@ -275,11 +350,19 @@ function getCellStyle(columnWidths:any, list:any, index:number) {
       backgroundColor: props.globalCellBgc
     };
   }
-  console.log(list[0].cellFieldsVal?.contentBgc || props.globalCellBgc);
+  // console.log(list[0].cellFieldsVal?.contentBgc || props.globalCellBgc);
+  let cellBgc="#ffffff00";//新创建的mcContainer组件的颜色都设置为透明色。fff颜色也是一种默认色，也就是component.json中定义的色彩，界面拾取的颜色，如果是白色都是6个ffffff的，因此不会面临被全局色覆盖的问题
+  if(list[0].cellFieldsVal?.contentBgc&&(list[0].cellFieldsVal?.contentBgc==="#ffffff00"||list[0].cellFieldsVal?.contentBgc==="#fff")){
+    cellBgc=props.globalCellBgc;
+  }else{
+    if(list[0].cellFieldsVal?.contentBgc){
+      cellBgc=list[0].cellFieldsVal?.contentBgc;
+    }
+  }
   return {
     width: cellWidth + "%",
     padding: list[0].cellFieldsVal?.padding + 'px',
-    backgroundColor: list[0].cellFieldsVal?.contentBgc ?? '#ffffff'
+    backgroundColor: cellBgc
   }
 }
 
@@ -341,7 +424,7 @@ function showTableConfig(item:any, rowIndex:any, colIndex:any, rowSpan:any, colS
     return;
   }
   //todo 如果item[0]为空，则不允许调摄颜色。
-  console.log(item[0], item[0].cellFields, item[0].cellFieldsVal);
+  console.log("dds",item[0], item[0].cellFields, item[0].cellFieldsVal);
   store.curComponent=item[0].cellFieldsVal;
   store.curStateFields=item[0].cellFields;//字段定义
 }
@@ -692,14 +775,17 @@ function changeItemRowIndexAndSpan(items:any) {
 }
 //拆分单元格，总体思路是先拆分列，再拆分行。doSplitRowOrColumn方法执行拆分列的逻辑，如果行也要拆分在doSplitRowOrColumn方法中调用doSplitRow的逻辑
 function doSplitRowOrColumn(splitRowCount:any, splitColCount:any) {
+  isNeedUpateTableDataArr2.value=false;
   console.log(splitRowCount, splitColCount, "要拆分单元格了", reactiveData.tabData);
   if (Number.isNaN(splitColCount) || Number.isNaN(splitRowCount)) {
     //todo 都没有一些错误提示框，可采用el-modal实现
+    isNeedUpateTableDataArr2.value=true;
     return;
   }
 
   if (splitRowCount === 1 && splitColCount === 1) {
     //本身选择一个，拆分目标为1行1列，相当于不用做拆分
+    isNeedUpateTableDataArr2.value=true;
     return;
   }
 
@@ -708,6 +794,7 @@ function doSplitRowOrColumn(splitRowCount:any, splitColCount:any) {
   const isSelectedMultiCells = reactiveData.selectedMaxRowIndex > reactiveData.pickedRowIndex + reactiveData.pickedRowSpan || reactiveData.selectedMaxColIndex > reactiveData.pickedColIndex + reactiveData.pickedColSpan || reactiveData.selectedMinRowIndex < reactiveData.pickedRowIndex || reactiveData.selectedMinColIndex < reactiveData.pickedColIndex;
   if (isSelectedMultiCells) {
     console.warn("选择了多个单元格,无法拆分");
+    isNeedUpateTableDataArr2.value=true;
     return;
   }
 
@@ -720,6 +807,7 @@ function doSplitRowOrColumn(splitRowCount:any, splitColCount:any) {
 
   const everyNewCreateDataColSpan = newSelectedColSpanCount / splitColCount;
   if (!Number.isInteger(everyNewCreateDataColSpan)) {
+    isNeedUpateTableDataArr2.value=true;
     throw new Error("最小公倍数逻辑异常，因为没有被整除" + everyNewCreateDataColSpan);
   }
 
@@ -879,6 +967,16 @@ function doSplitRowOrColumn(splitRowCount:any, splitColCount:any) {
         reactiveData.tabData.push(item);
       });
     }
+    console.log("开始打印完全纵向落入范围内的对象----------------------");
+    if (cellRecordsForFullIn?.size > 0) {
+      cellRecordsForFullIn.forEach((value, key) => {
+        // key.colIndex = value.colIndex;
+        // key.colSpan = value.colSpan;
+        console.log(`原始位置rowIndex：${key.rowIndex}，原始colIndex：${key.colIndex}--原始rowSpan：${key.rowSpan}，原始colspan：${key.colSpan}----newColIndex:${value.colIndex},newColSpan:${value.colSpan}`)
+        console.log(key);
+      });
+    }
+    console.log("开始打印完全纵向落入范围内的对象----------------------");
     changeItemColIndexAndSpan(cellRecordsForFullIn);
     changeItemColIndexAndSpan(cellRecordsForLeftIntersectedWith);
     changeItemColIndexAndSpan(cellRecordsForRightIntersectedWith);
@@ -892,11 +990,16 @@ function doSplitRowOrColumn(splitRowCount:any, splitColCount:any) {
   }
   console.log("splitRowCount, splitColCount, curCellData, newCreatedData, everyNewCreateDataColSpan",splitRowCount, splitColCount, curCellData, newCreatedData, everyNewCreateDataColSpan);
   splitRowCount === 1 ? clearCurSelectedCells() : doSplitRow(splitRowCount, splitColCount, curCellData, newCreatedData, everyNewCreateDataColSpan);
+  if(splitRowCount===1){
+    isNeedUpateTableDataArr2.value=true;
+  }
 }
 function doSplitRow(splitRowCount:any, splitColCount:any, curCellData:any, newCreatedData:any, newPickedColSpan:any) {
+  isNeedUpateTableDataArr2.value=false;
   console.log("执行行拆分逻辑了", splitColCount, reactiveData.myColCount);
   if (splitRowCount === 1) {
     clearCurSelectedCells();
+    isNeedUpateTableDataArr2.value=true;
     return;
   }
   const isColHasSplit = splitColCount > 1;
@@ -914,6 +1017,7 @@ function doSplitRow(splitRowCount:any, splitColCount:any, curCellData:any, newCr
 
   const everyNewCreateDataRowSpan = newSelectedRowSpanCount / splitRowCount;
   if (!Number.isInteger(everyNewCreateDataRowSpan)) {
+    isNeedUpateTableDataArr2.value=true;
     throw new Error("最小公倍数逻辑异常，因为没有被整除" + everyNewCreateDataRowSpan);
   }
 
@@ -1101,24 +1205,31 @@ function doSplitRow(splitRowCount:any, splitColCount:any, curCellData:any, newCr
       // console.log("curSpan打印",item.rowSpan,item);
     });
   }
-  // console.log(everyNewCreateDataRowSpan,curCellData,"everyNewCreateDataRowSpanhecurCellData");
   if (finalNewCreate?.length > 0) {
     finalNewCreate.forEach(item => {
       reactiveData.tabData.push(item);
     });
   }
-  //console.log(cellRecordsForFullIn.has(curCellData[1]),cellRecordsForLeftIntersectedWith.has(curCellData[1]),cellRecordsForRightIntersectedWith.has(curCellData[1]),cellRecordsForFullOuter.has(curCellData[1]),cellRecordsForFullRight.has(curCellData[1]))
   changeItemRowIndexAndSpan(cellRecordsForFullIn);
   changeItemRowIndexAndSpan(cellRecordsForLeftIntersectedWith);
   changeItemRowIndexAndSpan(cellRecordsForRightIntersectedWith);
   changeItemRowIndexAndSpan(cellRecordsForFullOuter);
+
+  cellRecordsForFullRight.forEach((value,key)=>{
+    console.log(key.id,key.component,key.rowIndex,key.colIndex,key.rowSpan,key.colSpan,"key.rowIndex,key.colIndex,key.rowSpan,key.colSpan",value.rowIndex,value.rowSpan);
+  });
   changeItemRowIndexAndSpan(cellRecordsForFullRight);
 
   //还要记得更新总的行列数。
   splitCellHeight(splitEveryCellHeight, addRowCount);
   reactiveData.isToChangeRowByNoneUI = true;
   reactiveData.myRowCount = props.rowCount + addRowCount;
+  isNeedUpateTableDataArr2.value=true;
   clearCurSelectedCells();
+  // const isHasYouZhi=reactiveData.tabData.filter(item=>item.rowIndex==13&&item.colIndex==0&&item.rowSpan==1&&item.colSpan==4);
+  // if(isHasYouZhi&&isHasYouZhi.length>0){
+  //   console.log(isHasYouZhi,"isHasYouZhi");
+  // }
 }
 //删除所在行
 function doDeleteLocatedRow() {
