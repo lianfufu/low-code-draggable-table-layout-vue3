@@ -65,7 +65,7 @@ watch(()=>writableList.value,(value)=>{//当数据是为了列表进行服务的
           "contentBgc": {
             "label": "背景色",
             "type": "color",
-            "value": "#fff"
+            "value": "#ffffff00"
           },
           "padding": {
             "label": "内边距",
@@ -74,15 +74,16 @@ watch(()=>writableList.value,(value)=>{//当数据是为了列表进行服务的
           }
         }
       }
-      if(!item.cellFieldVal){
-        item.cellFieldVal={};
+      if(!item.cellFieldsVal){
+        item.cellFieldsVal={};
         for (const cellFieldsKey in item.cellFields) {
           if(item.cellFields.hasOwnProperty(cellFieldsKey)){
             if(item.cellFields[cellFieldsKey].value){
-              item.cellFieldVal[cellFieldsKey]=item.cellFields[cellFieldsKey].value;
+              item.cellFieldsVal[cellFieldsKey]=item.cellFields[cellFieldsKey].value;
             }
           }
         }
+        // console.log(item)
       }
     });
     if(value.length>1){
@@ -96,6 +97,7 @@ watch(()=>writableList.value,(value)=>{//当数据是为了列表进行服务的
   emits("update:list",value);
 },{
   deep:true,
+  immediate:true
 });
 
 function deleteWidget(component){

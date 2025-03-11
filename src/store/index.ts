@@ -18,6 +18,7 @@ export const useStore = defineStore('main', () => {
                 }
             }
         }else{
+            console.log("curStateFields.value",curStateFields.value);
             return curStateFields.value;
         }
     });

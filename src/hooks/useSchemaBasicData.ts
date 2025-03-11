@@ -1,4 +1,5 @@
 import { ref, computed, watch } from 'vue';
+import _ from "lodash";
 
 export default function useSchemaData(props:any, emits:any) {
     console.log(props,"传进来的props is null?");
@@ -12,10 +13,10 @@ export default function useSchemaData(props:any, emits:any) {
         myValue.value = newValue;
     }, { immediate: true, deep: true });
 
-    watch(myValue, (newValue, oldValue) => {
+    watch(myValue, _.debounce((newValue, oldValue) => {
         emits('update:modelValue', newValue);
         console.log("更新了值，执行了input和change事件");
-    }, { immediate: true, deep: true });
+    },100), { immediate: true, deep: true });
 
     return {
         myValue,
@@ -23,6 +24,10 @@ export default function useSchemaData(props:any, emits:any) {
     };
 }
 
+// _.debounce(()=>{
+//     emits('update:modelValue', newValue);
+//     console.log("更新了值，执行了input和change事件");
+// },500);
 // export default {
 //     data(){
 //         return{
