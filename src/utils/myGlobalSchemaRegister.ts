@@ -1,4 +1,5 @@
 import {useStore} from "@/store";
+import {useDesignStore} from "@/store/designStatusStore";
 
 export function initCustomComponentsConfig() {
     const files = require.context('@/components/custom-components', true,/component.json$/);

@@ -3,12 +3,12 @@
 * {
   box-sizing: border-box;
 
-  &::-webkit-scrollbar {
-    // width: 6px; /*高宽分别对应横竖滚动条的尺寸*/
-    // height: 4px;
-
-    display: none; /* Chrome Safari */
-  }
+  //&::-webkit-scrollbar {
+  //  // width: 6px; /*高宽分别对应横竖滚动条的尺寸*/
+  //  // height: 4px;
+  //
+  //  display: none; /* Chrome Safari */
+  //}
 
   &::-webkit-scrollbar-thumb {
     /*滚动条里面小方块*/

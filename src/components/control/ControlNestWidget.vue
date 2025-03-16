@@ -23,6 +23,7 @@
 <script setup lang="ts">
 import {useStore} from "@/store";
 import {ref, watch} from "vue";
+import WidgetShape from "@/components/control/WidgetShape.vue";
 
 const emits=defineEmits(["updateTableChildData","update:list"]);
 const props=withDefaults(defineProps<{
