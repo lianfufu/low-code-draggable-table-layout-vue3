@@ -15,6 +15,7 @@ export type PickedBarModeType="Design"|"Preview";
 //     Components,
 //     Navigations
 // }
+
 export const useDesignStore = defineStore('design', () => {
     const pickedBarModel=ref<PickedBarModeType>("Design");
 
@@ -25,10 +26,6 @@ export const useDesignStore = defineStore('design', () => {
 
     //确保设计页和预览页高度的一直
     const iframeHeight=ref("800px");
-
-    function windowResize(){
-        mainCanvasWidth.value=window.innerWidth-leftMenuPanelWidth.value-rightMenuPanelWidth.value-40;
-    }
 
     //设计状态下选择的内容
     const pickedDesignMode=ref<number>(0);
