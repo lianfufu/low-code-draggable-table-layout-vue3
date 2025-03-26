@@ -11,6 +11,12 @@ export const useStore = defineStore('main', () => {
             curComponent.value?.component==="McTab"||
             curComponent.value?.component==="McTable"||
             curComponent.value?.component==="McTitle"||
+            curComponent.value?.component==="McNotice"||
+            curComponent.value?.component==="McSwiper"||
+            curComponent.value?.component==="McButton"||
+            curComponent.value?.component==="McSearch"||
+            curComponent.value?.component==="McBgcImg"||
+            curComponent.value?.component==="McNav"||
             curComponent.value?.component==="McContainer"){
             if(curComponent.value?.component&&fields.value[curComponent.value.component]){
                 if(fields.value){

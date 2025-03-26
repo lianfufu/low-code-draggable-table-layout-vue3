@@ -11,7 +11,8 @@
       "model": "left",
       "styles": {
         "titleSize": 16,
-        "titleColor": "#333333"
+        "titleColor": "#333333",
+        "isFontHighWeight": false
       },
       "rowIndex": 0,
       "colIndex": 0,
@@ -43,7 +44,8 @@
       "model": "left",
       "styles": {
         "titleSize": 16,
-        "titleColor": "#333333"
+        "titleColor": "#333333",
+        "isFontHighWeight": false
       },
       "rowIndex": 0,
       "colIndex": 2,
@@ -75,7 +77,8 @@
       "model": "left",
       "styles": {
         "titleSize": 16,
-        "titleColor": "#333333"
+        "titleColor": "#333333",
+        "isFontHighWeight": false
       },
       "rowIndex": 1,
       "colIndex": 0,
@@ -107,7 +110,8 @@
       "model": "left",
       "styles": {
         "titleSize": 16,
-        "titleColor": "#333333"
+        "titleColor": "#333333",
+        "isFontHighWeight": false
       },
       "rowIndex": 1,
       "colIndex": 1,
@@ -139,7 +143,8 @@
       "model": "left",
       "styles": {
         "titleSize": 16,
-        "titleColor": "#333333"
+        "titleColor": "#333333",
+        "isFontHighWeight": false
       },
       "rowIndex": 1,
       "colIndex": 2,
@@ -172,12 +177,16 @@
     "colCount": {
       "label": "列数",
       "type": "number",
-      "value": 3
+      "value": 4
     },
     "padding": {
       "label": "上下间距",
       "type": "number",
-      "value": 100
+      "value": 10,
+      "options":{
+        "min":0,
+        "max":100
+      }
     },
     "isShowBorder": {
       "label": "是否显示边框",
@@ -210,6 +219,16 @@
           "value": "bottom"
         }
       ]
+    },
+    "columnWidths": {
+      "label": "表格宽度分布",
+      "type": "noShow",
+      "value": [25,25,25,25]
+    },
+    "rowHeights": {
+      "label": "表格高度分布",
+      "type": "noShow",
+      "value": [40,40]
     }
   }
 }

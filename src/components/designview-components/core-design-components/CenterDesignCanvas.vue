@@ -1,7 +1,7 @@
 <template>
   <div class="control-page">
     <div class="panel">
-      <div class="panel-content" @mousedown="eventTargetSourceIsTD">
+      <div class="panel-content" :style="panelContentStyle" @mousedown="eventTargetSourceIsTD" ref="panelContentRef">
         <control-nest-widget :list="widgets" @update:list="doUpdateList"/>
       </div>
     </div>
@@ -10,22 +10,93 @@
 
 <script setup lang="ts">
 
-import {ref, watch} from "vue";
+import {computed, ref, watch,onMounted,onBeforeUnmount} from "vue";
 import ControlNestWidget from "@/components/control/ControlNestWidget.vue";
 import {useDesignStore} from "@/store/designStatusStore";
-
+import global from "@/configs/global";
+import {useStore} from "@/store";
+const store=useStore();
 const designStore=useDesignStore();
-const widgets=designStore.currentPageData;
+const widgets=computed(()=>designStore.currentPageData.pages);
+watch(()=>designStore.currentPageData.pages,value=>{
+  console.log("designStore.currentPageData发生了变化",value);
+},{
+  deep:true
+});
+watch(()=>widgets.value,value=>{
+  console.log("widgets发生了变化",value);
+},{
+  deep:true
+});
 const isClickedTD=ref<boolean>(false);
 function eventTargetSourceIsTD(){
   isClickedTD.value = event.target.nodeName === "TD";
   console.log(isClickedTD.value,"冒泡出来了down");
+  if(event.target==event?.currentTarget||event.target.parentNode.classList.contains("panel-content")){
+    console.log("点到了空白区域");
+    store.curComponent=null;
+  }
 }
 
 function doUpdateList(list:any){
-  widgets.value=list;
+  designStore.currentPageData.pages=list;
+  designStore.pageNamesWithPageDataMap.set(designStore.currentPageName,
+      {
+        pageGlobalStyles:designStore.currentPageData.pageGlobalStyles||{
+          padding:"10px",
+          backgroundColor:"purple"
+        },
+        pages:designStore.currentPageData.pages
+      });
 }
 
+//动态记录iframe的高度
+// const panelContentRef=ref(null);
+//
+// watch(()=>panelContentRef.value?.offsetHeight,value => {
+//   console.log(panelContentRef.value?.offsetHeight,"panelContentRef.value.offsetHeight");
+//   designStore.iframeHeight=panelContentRef.value?value+'px':'800px';
+// },{
+//   immediate:true
+// })
+
+const panelContentStyle=computed(()=>({
+  backgroundColor:designStore.currentPageData.pageGlobalStyles.backgroundColor,
+  padding:designStore.currentPageData.pageGlobalStyles.padding+'px',
+}));
+
+const panelContentRef = ref(null)
+let resizeObserver = null
+
+const updateHeight = (height) => {
+  designStore.iframeHeight = height ? `${height+10}px` : '800px'
+}
+
+function handlerHiddenRightClickMenu(){
+  designStore.isShowRightClickMenu=false;
+}
+
+onMounted(() => {
+  resizeObserver = new ResizeObserver((entries) => {
+    const entry = entries[0]
+    updateHeight(entry.target.offsetHeight)
+  })
+
+  if (panelContentRef.value) {
+    // 立即触发一次更新
+    updateHeight(panelContentRef.value.offsetHeight)
+    // 开始监听变化
+    resizeObserver.observe(panelContentRef.value)
+  }
+  window.addEventListener("click",handlerHiddenRightClickMenu);
+})
+
+onBeforeUnmount(() => {
+  if (resizeObserver) {
+    resizeObserver.disconnect()
+  }
+  window.removeEventListener("click",handlerHiddenRightClickMenu);
+})
 
 </script>
 

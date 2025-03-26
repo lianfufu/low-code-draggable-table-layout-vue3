@@ -1,6 +1,7 @@
 <template>
   <draggable
-      :class="isWidget?'nest-widget-height':'outer-widget-height'"
+      :class="['clearfix',isWidget?'nest-widget-height':'outer-widget-height']"
+      style="width: 100%"
       v-model="writableList"
       ghostClass="ghost"
       chosenClass="chosen"
@@ -11,10 +12,21 @@
       item-key="component">
     <template #item="{element,index}">
       <WidgetShape v-if="element.component!=='MCTextContainer'" :cur-component="element" :key="element.id" v-bind="element" @deleteWidget="deleteWidget">
-        <component v-if="element.component!=='McTable'&&element.component!=='MCTextContainer'" :is="element.component" v-bind="element">
+        <component v-if="element.component!=='McTable'&&element.component!=='MCTextContainer'&&element.component!=='McContainer'" :is="element.component" v-bind="element">
           <ControlNestWidget :isWidget="true" @update:list="(value)=>{element.children=value}" :list="element.children"></ControlNestWidget>
         </component>
-        <component v-else-if="element.component==='McTable'" :is="element.component" v-bind="element" :colCount="element.colCount" @update:colCount="(value)=>{element.colCount=value}" :rowCount="element.rowCount" @update:rowCount="(value)=>{element.rowCount=value}" :children="element.children" @update:children="(value)=>{element.children=value}"/>
+        <component v-else-if="element.component==='McContainer'" :is="element.component" v-bind="element">
+          <template #header>
+            <ControlNestWidget :isWidget="true" @update:list="(value)=>{element.header=value}" :list="element.header"></ControlNestWidget>
+          </template>
+          <ControlNestWidget :isWidget="true" @update:list="(value)=>{element.children=value}" :list="element.children"></ControlNestWidget>
+        </component>
+        <component v-else-if="element.component==='McTable'" :is="element.component" v-bind="element"
+                   :colCount="element.colCount" @update:colCount="(value)=>{element.colCount=value}"
+                   :rowCount="element.rowCount" @update:rowCount="(value)=>{element.rowCount=value}"
+                   :columnWidths="element.columnWidths" @update:columnWidths="(value)=>{element.columnWidths=value}"
+                   :rowHeights="element.rowHeights" @update:rowHeights="(value)=>{element.rowHeights=value}"
+                   :children="element.children" @update:children="(value)=>{element.children=value}"/>
       </WidgetShape>
     </template>
   </draggable>
@@ -102,7 +114,7 @@ watch(()=>writableList.value,(value)=>{//当数据是为了列表进行服务的
 });
 
 function deleteWidget(component){
-  console.log("执行删除失败-前半部");
+  console.log("执行删除失败-前半部",component);
   writableList.value.splice(writableList.value.indexOf(component),1);
   store.curComponent=null;
   console.log(store.curComponent);
@@ -118,4 +130,21 @@ function deleteWidget(component){
 .nest-widget-height{
   min-height: 30px;
 }
+.clear {
+  *zoom: 1
+}
+.clearfix:before,
+.clearfix:after {
+
+  display: table;
+
+  line-height: 0;
+
+  content: "";
+
+}
+.clearfix:after {
+  clear: both;
+}
+
 </style>

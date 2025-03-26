@@ -1,0 +1,109 @@
+{
+  "name": "背景容器",
+  "icon": "icon-image",
+  "children": [],
+  "fields": {
+    "imagePath": {
+      "label": "图片上传",
+      "type": "upload",
+      "value": ""
+    },
+    "containerBgc": {
+      "label": "容器背景色",
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "isShowPic": {
+      "label": "是否显示背景图片",
+      "type": "switch",
+      "value": true
+    },
+    "isShowMask": {
+      "label": "是否显示灰色遮罩",
+      "type": "switch",
+      "value": false
+    },
+    "padding": {
+      "label": "上下内间距",
+      "type": "number",
+      "value": 7
+    },
+    "minHeight": {
+      "label": "最小高度",
+      "type": "number",
+      "value": 50,
+      "options":{
+        "min":30,
+        "max":150
+      }
+    },
+    "marginLeftAndRight": {
+      "label": "左右外边距",
+      "type": "number",
+      "value": 10,
+      "options":{
+        "min":0,
+        "max":30
+      }
+    },
+    "marginTopAndBottom": {
+      "label": "上下外边距",
+      "type": "number",
+      "value": 10,
+      "options":{
+        "min":0,
+        "max":50
+      }
+    },
+    "borderLeftTopRadius": {
+      "label": "容器左顶圆角",
+      "type": "number",
+      "value": 5,
+      "options":{
+        "min":0,
+        "max":50
+      }
+    },
+    "borderRightTopRadius": {
+      "label": "容器右顶圆角",
+      "type": "number",
+      "value": 5,
+      "options":{
+        "min":0,
+        "max":50
+      }
+    },
+    "borderLeftBottomRadius": {
+      "label": "容器左底圆角",
+      "type": "number",
+      "value": 5,
+      "options":{
+        "min":0,
+        "max":50
+      }
+    },
+    "borderRightBottomRadius": {
+      "label": "容器右底圆角",
+      "type": "number",
+      "value": 5,
+      "options":{
+        "min":0,
+        "max":50
+      }
+    },
+    "borderWidth": {
+      "label": "边框宽度",
+      "type": "number",
+      "value": 1,
+      "options":{
+        "min":0,
+        "max":3
+      }
+    },
+    "borderColor": {
+      "label": "边框颜色",
+      "type": "color",
+      "value": "#000000"
+    }
+  }
+}

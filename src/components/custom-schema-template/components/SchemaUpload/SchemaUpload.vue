@@ -38,8 +38,10 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
     uploadFile
 ) => {
   // console.log("执行上传成功的逻辑",response);
-  myValue.value = response;
-  // console.log("执行上传成功的逻辑后",myValue.value);
+  const strArr=response.split('/');
+  const fileName=strArr[strArr.length-1];
+  myValue.value = process.env.VUE_APP_UPLOAD_API+fileName;
+  console.log("执行上传成功的逻辑后",myValue.value);
 }
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {

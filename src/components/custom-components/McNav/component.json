@@ -1,0 +1,79 @@
+{
+  "name": "导航",
+  "icon":"icon-daohang",
+  "fields": {
+    "tabList": {
+      "label": "导航栏列表",
+      "type": "array",
+      "child": {
+        "text": {
+          "label": "导航名称",
+          "type": "string",
+          "value": "默认导航"
+        },
+        "icon": {
+          "label": "导航图标",
+          "type": "string",
+          "value": ""
+        },
+        "jump": {
+          "label": "页面跳转",
+          "type": "jump",
+          "value": ""
+        }
+      },
+      "value":[
+        {
+          "id": "0001",
+          "text": "推荐酒店",
+          "icon":"icon-shop"
+        },
+        {
+          "id": "0002",
+          "text": "热销抢购",
+          "icon":"icon-sort"
+        },
+        {
+          "id": "0003",
+          "text": "促销门票",
+          "icon":"icon-goods"
+        },
+        {
+          "id": "0004",
+          "text": "机票团购",
+          "icon":"icon-my"
+        }
+      ]
+    },
+    "styles": {
+      "label": "导航栏样式",
+      "type": "object",
+      "child": {
+        "color": {
+          "label": "文本颜色",
+          "type": "color",
+          "value": "#000000"
+        },
+        "backgroundColor": {
+          "label": "导航栏背景色",
+          "type": "color",
+          "value": "#ffffff"
+        },
+        "pickedColor": {
+          "label": "选中状态颜色",
+          "type": "color",
+          "value": "#008efa"
+        },
+        "height": {
+          "label": "导航栏高度",
+          "type": "number",
+          "value": 50,
+          "options": {
+            "min": 40,
+            "max": 60
+          }
+        }
+      }
+    }
+  }
+}

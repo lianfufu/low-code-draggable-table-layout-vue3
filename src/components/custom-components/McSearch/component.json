@@ -1,0 +1,21 @@
+{
+  "name": "搜索",
+  "icon": "icon-search",
+  "fields": {
+    "placeholder": {
+      "label": "占位文本",
+      "type": "string",
+      "value": "请输入搜索内容"
+    },
+    "searchBgc": {
+      "label": "搜索背景颜色",
+      "type": "color",
+      "value": "#4fc08d"
+    },
+    "height": {
+      "label": "搜索框高度",
+      "type": "number",
+      "value": 30
+    }
+  }
+}

@@ -12,7 +12,11 @@
             id="styleManage" style="width: auto; padding: 0px 8px;" data-tabindex="1">
           <span class="" style="position: relative;">组件</span>
         </li>
-        <div ref="bottomLineElem" class="bottomLine__rocs1" style="width: 50%; left: 0px;"></div>
+        <li @click="handlePickTabItem" :class="[pickedTabIndex==2?'isActive__1D-bU':'']" class="menuItem__Wp88Y"
+            id="styleManage" style="width: auto; padding: 0px 8px;" data-tabindex="2">
+          <span class="" style="position: relative;">导航</span>
+        </li>
+        <div ref="bottomLineElem" class="bottomLine__rocs1" style="width: 33.333%; left: 0px;"></div>
       </ul>
     </div>
     <div class="leftPanel__U4gGk">
@@ -121,38 +125,10 @@
                     <div class="page-panel-tree-list" style="position: relative;">
                       <div class="page-panel-tree-list-holder">
                         <div>
-                          <!--                          <div class="page-panel-tree-list-holder-inner"-->
-                          <!--                               style="display: flex; flex-direction: column;">-->
-                          <!--                            <div data-id="d2NIZHA98c1V4LLGL5Blg"-->
-                          <!--                                 class="page-panel-tree-treenode page-panel-tree-treenode-switcher-close page-panel-tree-treenode-leaf-last page-panel-tree-treenode-draggable">-->
-                          <!--                              <span aria-hidden="true" class="page-panel-tree-indent"></span><span-->
-                          <!--                                class="page-panel-tree-switcher page-panel-tree-switcher-noop"></span><span-->
-                          <!--                                class="page-panel-tree-node-content-wrapper page-panel-tree-node-content-wrapper-normal"><span-->
-                          <!--                                class="page-panel-tree-iconEle page-panel-tree-icon__customize"><div-->
-                          <!--                                class="page-panel-tree-type-icon-wrapper page-panel-tree-is-select"><div-->
-                          <!--                                class="a_c cursor-pointer__34ZCy baseIconBox__QdtZC canHover__26i2q hasHoverBg__2jPIy undefined"-->
-                          <!--                                data-contr="hovertip"-->
-                          <!--                                data-option="{&quot;text&quot;:&quot;点击切换为白板模式&quot;,&quot;shortcut&quot;:&quot;Shift W&quot;}"-->
-                          <!--                                style="width: 24px; height: 24px;"><div class="baseIcon__3CiFl undefined"-->
-                          <!--                                                                        data-theme="false"-->
-                          <!--                                                                        style="pointer-events: none;"><svg-->
-                          <!--                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"-->
-                          <!--                                width="16" height="16" viewBox="0 0 16 16" fill="none"><g opacity="1"-->
-                          <!--                                                                                          transform="translate(0 0)  rotate(0 8 8)"><g-->
-                          <!--                                opacity="1" transform="translate(2 2)  rotate(0 6 6)"><path id="形状结合"-->
-                          <!--                                                                                            fill-rule="evenodd"-->
-                          <!--                                                                                            fill="currentColor"-->
-                          <!--                                                                                            transform="translate(0.6366642549999142 1.9602259944999787)  rotate(0 5.363335745 4.039774005500001)"-->
-                          <!--                                                                                            opacity="1"-->
-                          <!--                                                                                            d="M3.57,5.82L1.59,3.84C1.3,3.55 0.82,3.55 0.53,3.84L0.53,3.84C0.39,3.98 0.31,4.17 0.31,4.37C0.31,4.57 0.39,4.76 0.53,4.9L3,7.37C3.39,7.76 4.02,7.76 4.41,7.37L10.2,1.59C10.49,1.3 10.49,0.82 10.2,0.53L10.2,0.53C10.06,0.39 9.87,0.31 9.67,0.31C9.47,0.31 9.28,0.39 9.14,0.53L3.85,5.82C3.77,5.9 3.65,5.9 3.57,5.82Z "></path></g></g></svg></div></div></div></span><span-->
-                          <!--                                class="page-panel-tree-title"><div id="page-rename-input-d2NIZHA98c1V4LLGL5Blg"-->
-                          <!--                                                                   class="sc-gJCZQp jtRfni"><div-->
-                          <!--                                class="list-change-name__1iUrS C-name-input__2hfj-"><div-->
-                          <!--                                class="readonly-input">页面 1</div><pre>页面 1</pre></div></div></span></span></div>-->
-                          <!--                          </div>-->
                           <div class="page-panel-tree-list-holder-inner"
                                style="display: flex; flex-direction: column;" v-for="(page, index) in pages"
                                :key="index"
+                               @click="pickedItem(index)"
                                @dblclick="editPage(index)"
                                :class="{ editing: page.isEditing }">
                             <div data-id="d2NIZHA98c1V4LLGL5Blg"
@@ -334,7 +310,8 @@
           </div>
         </div>
       </div>
-      <ListWidgetsComponents v-else/>
+      <ListWidgetsComponents v-else-if="pickedTabIndex===1" v-model="initializing"/>
+      <ListWidgetsComponents v-else-if="pickedTabIndex===2" v-model="navInitializing"/>
     </div>
     <div class="dragListLine__1NQSJ" @mousedown="doResizePanelWidth"></div>
     <div id="leftMenuPanelCover" class="leftPanelCover__G9Cps"></div>
@@ -346,15 +323,67 @@ import {computed, onBeforeUnmount, nextTick, onMounted, ref, watch} from "vue";
 import {useResizeDomColumnSize, useResizeDomRowSize} from "@/hooks/useResizeDomSize";
 import ListWidgetsComponents from "@/components/designview-components/core-design-components/ListWidgetsComponents.vue";
 import {useDesignStore} from "@/store/designStatusStore";
+import {useStore} from "@/store";
 
 const designStore = useDesignStore();
 
+const store=useStore();
+const initializing=computed(()=>{
+  console.log(store.initializing,"store.initializing");
+  return store.initializing;
+});
+const navInitializing=ref([{
+  "component": "McNav",
+  "name": "导航",
+  "icon": "icon-daohang",
+  "tabList": [
+    {
+      "id": "0001",
+      "text": "推荐酒店",
+      "icon": "icon-shop"
+    },
+    {
+      "id": "0002",
+      "text": "热销抢购",
+      "icon": "icon-sort"
+    },
+    {
+      "id": "0003",
+      "text": "促销门票",
+      "icon": "icon-goods"
+    },
+    {
+      "id": "0004",
+      "text": "机票团购",
+      "icon": "icon-my"
+    }
+  ],
+  "styles": {
+    "color": "#000000",
+    "backgroundColor": "#ffffff",
+    "pickedColor": "#008efa",
+    "height": 50
+  }
+}]);
+
 const bottomLineElem = ref(null);
-const pickedTabIndex = ref(0);
+const pickedTabIndex = computed(()=>designStore.pickedDesignMode);
 
 function handlePickTabItem(event) {
-  pickedTabIndex.value = Number(event.currentTarget.dataset["tabindex"]);
-  bottomLineElem.value.style.left = !pickedTabIndex.value ? 0 : '50%';
+  designStore.pickedDesignMode = Number(event.currentTarget.dataset["tabindex"]);
+  let left;
+  switch (pickedTabIndex.value) {
+    case 0:
+      left=0;
+      break;
+    case 1:
+      left="33.333%";
+      break;
+    case 2:
+      left="66.667%";
+      break;
+  }
+  bottomLineElem.value.style.left = left;
 }
 
 interface PageItem {
@@ -383,8 +412,16 @@ onMounted(() => {
 const addPage = () => {
   const newPage = {
     name: `页面${pages.value.length + 1}`,
-    isEditing: true // 新增页面自动进入编辑状态
+    isEditing: true, // 新增页面自动进入编辑状态
+    isPicked:false
   };
+  //防止默认名称存在冲突
+  let i=pages.value.length + 1;
+  while (pages.value.findIndex(item=>item.name===`页面${i}`)!==-1){
+    i++;
+  }
+  newPage.name=`页面${i}`;
+
   pages.value.push(newPage);
 
   // 自动聚焦到新输入框
@@ -395,8 +432,35 @@ const addPage = () => {
   });
 };
 
-// 开始编辑
+// 置为选中状态，单击事件
+function setPickedItemStatus(index:number){
+  //更新isPicked的值
+  pages.value.forEach(item=>{
+    item.isPicked=false;
+  });
+  pages.value[index].isPicked = true;
+}
+let isDbClick=false;
+let timer:number=0;
+// const store=useStore();
+function pickedItem(index: number){
+  isDbClick=false;
+  timer = setTimeout(()=>{
+    if(isDbClick){
+      return;
+    }
+    console.log("执行了单击事件");
+    designStore.currentPageName = pages.value[index].name;
+    store.curComponent=null;
+    setPickedItemStatus(index);
+  },200);
+}
+
+// 开始编辑，双击事件
 const editPage = (index: number) => {
+  isDbClick=true;
+  clearTimeout(timer);
+  console.log("开始编辑时触发的编辑索引为：",index);
   pages.value[index].isEditing = true;
   nextTick(() => {
     inputRefs.value[index]?.focus();
@@ -410,20 +474,26 @@ const saveEdit = (index: number) => {
   //为了确保页面上修改的内容影响到了对应的data了
   nextTick(() => {
     //代表是新增项
-    if (designStore.pageNamesWithPageDataMap.size === pageCount.value) {
-      designStore.pageNamesWithPageDataMap.set(pages.value[index].name, []);
+    console.log("失去焦点时执行：",designStore.pageNamesWithPageDataMap.size === pageCount.value,designStore.pageNamesWithPageDataMap.size,pageCount.value);
+    if (designStore.pageNamesWithPageDataMap.size !== pageCount.value) {
+      designStore.pageNamesWithPageDataMap.set(pages.value[index].name, {pageGlobalStyles:{padding:0,backgroundColor:"purple"},pages:[]});
       console.log("/代表是新增项");
     } else {
-
+      const mapArray = Array.from(designStore.pageNamesWithPageDataMap);
+      const modifiedArray = mapArray.map(([key,  value],index2) => {
+        return index2 === index ? [pages.value[index].name, value] : [key, value];
+      });
+      designStore.pageNamesWithPageDataMap=new Map(modifiedArray);
     }
-    designStore.currentPageName = pages.value[index];
-    //更新isPicked的值
-    pages.value.forEach(item=>{
-      item.isPicked=false;
-    });
-    pages.value[index].isEditing = true;
+    designStore.currentPageName = pages.value[index].name;
+    setPickedItemStatus(index);
+    store.curComponent=null;
+    console.log("修改后的编辑状态值",Array.from(designStore.pageNamesWithPageDataMap));
   })
 };
+
+// watch(()=>designStore.currentPageName)
+
 
 //控制页面选项栏的折叠和展开
 const pageHeight = ref(32);

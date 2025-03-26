@@ -1,7 +1,7 @@
 <template>
   <div class="control-models">
     <draggable
-        v-model="initializing"
+        v-model="model"
         class="models-container"
         :group="{name:'xtwangzi',pull:'clone'}"
         :sort="false"
@@ -27,11 +27,7 @@ import _ from "lodash";
 import {getRandomCode} from "@/utils/globalMethods";
 import {useDesignStore} from "@/store/designStatusStore";
 
-
-const store=useStore();
-const initializing=computed(()=>{
-  return store.initializing;
-});
+const model=defineModel();
 
 function handleClone(model){
   console.log(model);
