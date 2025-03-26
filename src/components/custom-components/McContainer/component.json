@@ -1,36 +1,251 @@
 {
   "name": "容器",
   "icon": "icon-rongqi",
+  "header": [
+    {
+      "component": "McTable",
+      "name": "表格",
+      "icon": "icon-daohang",
+      "children": [
+        {
+          "id": "555341546246354",
+          "component": "McTitle",
+          "name": "标题",
+          "icon": "icon-biaotizujian",
+          "title": "容器标题",
+          "model": "left",
+          "styles": {
+            "titleSize": 18,
+            "titleColor": "#333333",
+            "isFontHighWeight": true
+          },
+          "rowIndex": 0,
+          "colIndex": 0,
+          "rowSpan": 1,
+          "colSpan": 1,
+          "cellFields": {
+            "contentBgc": {
+              "label": "背景色",
+              "type": "color",
+              "value": "#fff"
+            },
+            "padding": {
+              "label": "内边距",
+              "type": "number",
+              "value": 3
+            }
+          },
+          "cellFieldsVal": {
+            "contentBgc": "#fff",
+            "padding": 3
+          }
+        },
+        {
+          "id": "23331546246354",
+          "component": "McTitle",
+          "name": "标题",
+          "icon": "icon-biaotizujian",
+          "title": "更多>",
+          "model": "right",
+          "styles": {
+            "titleSize": 13,
+            "titleColor": "rgba(156, 132, 132, 1)",
+            "isFontHighWeight": false
+          },
+          "rowIndex": 0,
+          "colIndex": 2,
+          "rowSpan": 1,
+          "colSpan": 1,
+          "cellFields": {
+            "contentBgc": {
+              "label": "背景色",
+              "type": "color",
+              "value": "#fff"
+            },
+            "padding": {
+              "label": "内边距",
+              "type": "number",
+              "value": 3
+            }
+          },
+          "cellFieldsVal": {
+            "contentBgc": "#fff",
+            "padding": 3
+          }
+        },
+        {
+          "id": "1742547114lLHVatGt",
+          "component": "MCTextContainer",
+          "rowIndex": 0,
+          "colIndex": 0,
+          "rowSpan": 1,
+          "colSpan": 1,
+          "cellFields": {
+            "contentBgc": {
+              "label": "背景色",
+              "type": "color",
+              "value": "#ffffff00"
+            },
+            "padding": {
+              "label": "内边距",
+              "type": "number",
+              "value": 3
+            }
+          },
+          "cellFieldsVal": {
+            "contentBgc": "#ffffff00",
+            "padding": 3
+          }
+        },
+        {
+          "id": "1742547114g0m7PdwM",
+          "component": "MCTextContainer",
+          "rowIndex": 0,
+          "colIndex": 1,
+          "rowSpan": 1,
+          "colSpan": 1,
+          "cellFields": {
+            "contentBgc": {
+              "label": "背景色",
+              "type": "color",
+              "value": "#ffffff00"
+            },
+            "padding": {
+              "label": "内边距",
+              "type": "number",
+              "value": 3
+            }
+          },
+          "cellFieldsVal": {
+            "contentBgc": "#ffffff00",
+            "padding": 3
+          }
+        },
+        {
+          "id": "1742547114L6r98ivC",
+          "component": "MCTextContainer",
+          "rowIndex": 0,
+          "colIndex": 2,
+          "rowSpan": 1,
+          "colSpan": 1,
+          "cellFields": {
+            "contentBgc": {
+              "label": "背景色",
+              "type": "color",
+              "value": "#ffffff00"
+            },
+            "padding": {
+              "label": "内边距",
+              "type": "number",
+              "value": 3
+            }
+          },
+          "cellFieldsVal": {
+            "contentBgc": "#ffffff00",
+            "padding": 3
+          }
+        }
+      ],
+      "rowCount": 1,
+      "colCount": 3,
+      "padding": 10,
+      "isShowBorder": false,
+      "globalCellBgc": "#fff",
+      "model": "middle",
+      "columnWidths": [
+        33.3333,
+        33.3333,
+        33.3333
+      ],
+      "rowHeights": [
+        40
+      ],
+      "id": "1742547113N8PAZfRL"
+    }
+  ],
   "children": [],
   "fields": {
-    "title": {
-      "label": "容器标题",
-      "type": "string",
-      "value": "Header"
-    },
     "padding": {
-      "label": "上下间距",
+      "label": "上下内间距",
       "type": "number",
-      "value": 100
+      "value": 7
     },
     "minHeight": {
       "label": "最小高度",
       "type": "number",
-      "value": 50,
+      "value": 100,
       "options":{
         "min":30,
-        "max":100
+        "max":150
+      }
+    },
+    "marginLeftAndRight": {
+      "label": "左右外边距",
+      "type": "number",
+      "value": 10,
+      "options":{
+        "min":0,
+        "max":30
+      }
+    },
+    "marginTopAndBottom": {
+      "label": "上下外边距",
+      "type": "number",
+      "value": 10,
+      "options":{
+        "min":0,
+        "max":50
       }
     },
     "headBgc": {
       "label": "头部背景色",
       "type": "color",
-      "value": "#DD6161"
+      "value": "rgba(255, 255, 255, 1)"
     },
     "contentBgc": {
       "label": "内容背景色",
       "type": "color",
-      "value": "#e6e6e6"
+      "value": "rgba(255, 255, 255, 1)"
+    },
+    "borderRadius": {
+      "label": "容器圆角",
+      "type": "number",
+      "value": 5,
+      "options":{
+        "min":0,
+        "max":50
+      }
+    },
+    "borderWidth": {
+      "label": "边框宽度",
+      "type": "number",
+      "value": 1,
+      "options":{
+        "min":0,
+        "max":3
+      }
+    },
+    "borderColor": {
+      "label": "边框颜色",
+      "type": "color",
+      "value": "#000000"
+    },
+    "borderStyle": {
+      "label": "边框样式",
+      "type": "select",
+      "value": "solid",
+      "data": [
+        {
+          "id": "1634892925fV0D",
+          "label": "实线",
+          "value": "solid"
+        },
+        {
+          "id": "16348929304MaO",
+          "label": "点状线",
+          "value": "dashed"
+        }
+      ]
     }
   }
 }

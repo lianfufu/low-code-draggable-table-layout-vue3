@@ -1,7 +1,7 @@
 <template>
   <LabelWrapper :label="label">
     <div style="text-align: right;flex:1">
-      <el-switch v-model="myValue" active-text="显示" active-color="#115BD4"></el-switch>
+      <el-switch v-model="myValue" :active-text="myValue?'是':'否'" active-color="#115BD4"></el-switch>
     </div>
   </LabelWrapper>
 </template>

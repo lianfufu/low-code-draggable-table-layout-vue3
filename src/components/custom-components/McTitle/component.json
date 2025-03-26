@@ -38,10 +38,20 @@
           "type": "number",
           "value": 16
         },
+        "marginTop": {
+          "label": "顶部外边距",
+          "type": "number",
+          "value": 0
+        },
         "titleColor": {
           "label": "标题颜色",
           "type": "color",
           "value": "#333333"
+        },
+        "isFontHighWeight": {
+          "label": "是否加粗",
+          "type": "switch",
+          "value": false
         }
       }
     }

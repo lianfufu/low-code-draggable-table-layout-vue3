@@ -1,6 +1,6 @@
 <template>
   <div class="label-wrapper p10 ">
-    <div class="w80 f13 f-grey">{{props.label}}</div>
+    <div class="f13 f-grey" style="width:118px">{{props.label}}</div>
     <slot></slot>
   </div>
 </template>

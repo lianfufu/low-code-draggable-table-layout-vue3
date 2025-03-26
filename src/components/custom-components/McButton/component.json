@@ -1,0 +1,76 @@
+{
+  "name": "按钮",
+  "icon": "icon-search",
+  "fields": {
+    "buttonText": {
+      "label": "按钮文本内容",
+      "type": "string",
+      "value": "点击一下"
+    },
+    "buttonTextColor": {
+      "label": "按钮文本颜色",
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "buttonBgc": {
+      "label": "按钮背景颜色",
+      "type": "color",
+      "value": "#008efa"
+    },
+    "borderColor": {
+      "label": "边框颜色",
+      "type": "color",
+      "value": "#000000"
+    },
+    "fontSize": {
+      "label": "字体大小",
+      "type": "number",
+      "value": 16
+    },
+    "padding": {
+      "label": "上下内间距",
+      "type": "number",
+      "value": 10,
+      "options":{
+        "min":0,
+        "max":30
+      }
+    },
+    "borderRadius": {
+      "label": "按钮圆角",
+      "type": "number",
+      "value": 5,
+      "options":{
+        "min":0,
+        "max":40
+      }
+    },
+    "borderWidth": {
+      "label": "边框宽度",
+      "type": "number",
+      "value": 1,
+      "options":{
+        "min":0,
+        "max":3
+      }
+    },
+    "marginLeftAndRight": {
+      "label": "左右外边距",
+      "type": "number",
+      "value": 10,
+      "options":{
+        "min":0,
+        "max":30
+      }
+    },
+    "marginTopAndBottom": {
+      "label": "上下外边距",
+      "type": "number",
+      "value": 10,
+      "options":{
+        "min":0,
+        "max":50
+      }
+    }
+  }
+}

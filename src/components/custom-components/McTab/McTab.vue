@@ -3,7 +3,7 @@
     <div class="wrap-body" :style="bodyStyle">
       <ul class="tabs" :style="{width:tabWidth}">
         <li v-for="(item,index) in tabList" :key="index" class="tab-item" :style="{width:tabItemWidth}">
-          <img class="tab-item-img" :style="imgStyle" v-show="attrs.type==='image-text'||attrs.type==='image'" :src="item.image?item.image:'http://127.0.0.1:3000/defaultabimg.png'" alt="BannersImg"/>
+          <img class="tab-item-img" :style="imgStyle" v-show="attrs.type==='image-text'||attrs.type==='image'" :src="item.image?item.image:'http://116.205.127.244:3000/defaultabimg.png'" alt="BannersImg"/>
           <span :style="textStyle" class="ellipsis-1" v-show="attrs.type==='image-text'||attrs.type==='text'">{{item.label}}</span>
         </li>
       </ul>

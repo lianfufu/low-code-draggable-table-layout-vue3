@@ -21,13 +21,21 @@ const getStyles=computed(()=>{
     return {
       fontSize:"20px",
       color:"black",
-      textAlign:"left"
+      marginTop:"0",
+      textAlign:"left",
+      minHeight:"28px",
+      lineHeight:"28px",
+      fontWeight:500,
     }
   }else{
     return{
       fontSize:props.styles.titleSize+"px",
       color:props.styles.titleColor,
       textAlign:props.model,
+      marginTop: props.styles.marginTop+'px',
+      minHeight:"28px",
+      lineHeight:props.styles.titleSize<28?"28px":props.styles.titleSize+"px",
+      fontWeight:props.styles.isFontHighWeight?700:500,
     }
   }
 });
@@ -68,7 +76,4 @@ const getStyles=computed(()=>{
 </script>
 
 <style lang="scss" scoped>
-.title{
-  padding:0 10px;
-}
 </style>

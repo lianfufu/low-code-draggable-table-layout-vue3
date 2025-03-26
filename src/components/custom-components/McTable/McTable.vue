@@ -1,7 +1,7 @@
 <template>
   <div class="wrap" :style="{paddingBottom:padding+'px',paddingTop:padding+'px'}" @click="sourceTargetClickIsTD">
     <!--    <div style="opacity: 0;height: 0">{{writableIsClickTD}}-{{isShowOperationBar}}-{{isClickedTD}}</div>-->
-    <div>{{ reactiveData.writableIsClickTD }}-{{ reactiveData.isShowOperationBar }}-{{ isClickedTD }}</div>
+<!--    <div>{{ reactiveData.writableIsClickTD }}-{{ reactiveData.isShowOperationBar }}-{{ isClickedTD }}</div>-->
     <cell-operation-bar v-show="reactiveData.isClickedAtOperationBar||(reactiveData.isShowOperationBar&&reactiveData.writableIsClickTD)"
                         @updateCurCellSplitInfo="doSplitRowOrColumn" @doMergeCells="doMergeRowOrColumn"
                         @doDeleteRow="doDeleteLocatedRow" @doDeleteCol="doDeleteLocatedCol"
@@ -41,6 +41,7 @@ import {lcm} from "@/utils/mathUtils";
 import {computed, onMounted, reactive, ref, watch} from "vue";
 import {useStore} from "@/store";
 import {getRandomCode} from "@/utils/globalMethods";
+import {useDesignStore} from "@/store/designStatusStore";
 
 const store=useStore();
 const reactiveData=reactive({
@@ -48,7 +49,7 @@ const reactiveData=reactive({
   columnWidths: [],//所有列的列宽数组
   rowHeights: [],//所有行的行高数组
   myColCount: 3,//列数
-  myRowCount: 2,//行数
+  myRowCount: 1,//行数
   parentWidth: 430,//当前画布宽度
   cellIsMouseMove: false,//用于控制计算鼠标移过的矩形范围的单元格被选择
   selectedMinRowIndex: Number.NaN,//选择框的左上角点的RowIndex
@@ -82,12 +83,16 @@ const props=defineProps({
     default: 0
   },
   colCount: {
-    type: Number,
-    default: 3
+    type: Number
   },
   rowCount: {
-    type: Number,
-    default: 2
+    type: Number
+  },
+  columnWidths:{
+    type:Array,
+  },
+  rowHeights:{
+    type:Array,
   },
   model: {
     type: String,
@@ -102,17 +107,42 @@ const props=defineProps({
     default: "#fff"//全局单元格样式
   }
 });
-// const emits=defineEmits(["update:colCount","update:rowCount","update:children"]);
+
+const designStore=useDesignStore();
+watch(()=>designStore.currentPageData.pages,value=>{
+  const tmpColumnWidths=[];
+  props.columnWidths?.forEach(item=>{
+    tmpColumnWidths.push(item);
+  });
+  reactiveData.columnWidths=tmpColumnWidths;
+
+
+  const tmpRowHeights=[];
+  props.rowHeights?.forEach(item=>{
+    tmpRowHeights.push(item);
+  });
+  reactiveData.rowHeights=tmpRowHeights;
+});
 
 
 onMounted(()=>{
   console.log(store.curComponent);
-  for (let i = 0; i < props.colCount; i++) {
-    reactiveData.columnWidths.push(100 / props.colCount);
-  }
-  for (let j = 0; j < props.rowCount; j++) {
-    reactiveData.rowHeights.push(40);
-  }
+  reactiveData.myRowCount=props.rowCount;
+  reactiveData.myColCount=props.colCount;
+  const tmpColumnWidths=[];
+  props.columnWidths?.forEach(item=>{
+    tmpColumnWidths.push(item);
+  });
+  reactiveData.columnWidths=tmpColumnWidths;
+
+  reactiveData.myColCount = props.columnWidths.length;
+  reactiveData.myRowCount = props.rowHeights.length;
+
+  const tmpRowHeights=[];
+  props.rowHeights?.forEach(item=>{
+    tmpRowHeights.push(item);
+  });
+  reactiveData.rowHeights=tmpRowHeights;
 });
 const curComponent=computed(()=>{
   return store.curComponent;
@@ -121,7 +151,7 @@ const tableDataArr2=ref([[]]);
 const isNeedUpateTableDataArr2=ref(true);
 watch(()=>[props.rowCount,props.colCount,reactiveData.tabData],(value)=>{
   if(isNeedUpateTableDataArr2.value){
-    console.log("[][]后",mytable);
+    // console.log("[][]后",mytable);
 
     const isHasYouZhi=reactiveData.tabData.filter(item=>item.rowIndex==13&&item.colIndex==0&&item.rowSpan==1&&item.colSpan==4);
     if(isHasYouZhi&&isHasYouZhi.length>0){
@@ -179,7 +209,7 @@ watch(()=>[props.rowCount,props.colCount,reactiveData.tabData],(value)=>{
         }
       }
     }
-    console.log("最新的tableDataArr2",res);
+    console.log("最新的tableDataArr2",res,props.colCount,props.rowCount,reactiveData.myColCount,reactiveData.myRowCount);
     tableDataArr2.value=res;
   }
 },{
@@ -267,17 +297,19 @@ const isClickedTD=computed(()=>{
   return false;
 });
 
-const emits=defineEmits(["update:rowCount","update:colCount","update:children"]);
+const emits=defineEmits(["update:rowCount","update:colCount","update:children","update:columnWidths","update:rowHeights"]);
 watch(()=>reactiveData.myRowCount,(value)=>{
   console.log("行数变了myRowCount");
   emits("update:rowCount", value);
-},{
-  immediate: true,
 });
 watch(()=>reactiveData.myColCount,(value)=>{
   emits("update:colCount", value);
-},{
-  immediate: true,
+});
+watch(()=>reactiveData.columnWidths,(value)=>{
+  emits("update:columnWidths", value);
+});
+watch(()=>reactiveData.rowHeights,(value)=>{
+  emits("update:rowHeights", value);
 });
 watch(()=>props.children,(value)=>{
   reactiveData.tabData = value;
@@ -292,21 +324,27 @@ watch(()=>reactiveData.tabData,(value)=>{
   deep:true,
   immediate:true
 });
+const isFirstExecute=ref(true);
 watch(()=>props.colCount,(value)=>{
-  reactiveData.myColCount = value;
+  reactiveData.myColCount=props.colCount;
   if (!reactiveData.isToChangeColByNoneUI) {
     // 只要修改了列的个数，先前的列的宽度设置都将被重置
-    reactiveData.columnWidths = [];
-    for (let i = 0; i < props.colCount; i++) {
-      reactiveData.columnWidths.push(100 / props.colCount);
+    if(!isFirstExecute.value){
+      reactiveData.columnWidths = [];
+      for (let i = 0; i < props.colCount; i++) {
+        reactiveData.columnWidths.push(100 / props.colCount);
+      }
     }
   } else {
     reactiveData.isToChangeColByNoneUI = false;
   }
+  isFirstExecute.value=false;
+},{
+  immediate:true
 });
 watch(()=>props.rowCount,(value,oldValue)=>{
+  reactiveData.myRowCount=props.rowCount;
   console.log("行数变了rowCount");
-  reactiveData.myRowCount = value;
   if (value > oldValue) {//原有的高度值不要被改变
     for (let i = oldValue; i < props.rowCount; i++) {
       reactiveData.rowHeights.push(40);
@@ -320,6 +358,8 @@ watch(()=>props.rowCount,(value,oldValue)=>{
       reactiveData.isToChangeRowByNoneUI = false;
     }
   }
+},{
+  immediate:true
 });
 watch(isClickedTD,(value)=>{
   if (!value) {
@@ -517,9 +557,12 @@ function calculateCellOperationBarLocation(event:any) {
   reactiveData.isShowOperationBar = true;
 }
 //采用事件委托的方式，控制点击cell-operation-bar组件内部的哪些元素以后，不再去显示操作栏，即点击删除行/列按钮后，不再显示操作栏。
-function sourceTargetClickIsTD() {
+function sourceTargetClickIsTD(event:any) {
+  if(!event.target.nodeName)
+    return;
   const isClickTDViewFromWrapperDiv = event.target.nodeName === "TD" || event.target.nodeName === "TR" || event.target.nodeName === "TBODY";//如果是false，才有可能选择的是来自于cell-operation-bar组件内部的哪些元素
   if (!isClickTDViewFromWrapperDiv) {
+    console.log("node名称为:",event.target.nodeName);
     const isFromChild = event.target.closest('.cell-operation-bar') && !event.target.closest('.delete-row') && !event.target.closest('.delete-col');
     if (!isFromChild) {
       reactiveData.isShowOperationBar = false;
