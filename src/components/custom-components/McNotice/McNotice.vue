@@ -64,6 +64,7 @@ function sendComponentDataToIframe(){
   iframeRef.value.contentWindow.postMessage(
       {
         even: "componentData-uni",
+        isPage:false,
         params: JSON.parse(JSON.stringify({component:"McNotice",...props})),
         meta: { instanceId: instanceId.value }
       },
@@ -81,6 +82,7 @@ function init(){
   iframeRef.value.contentWindow.postMessage(
       {
         even: "init-uni",
+        isPage:false,
         params: { height: '41px'},
         meta: { instanceId: instanceId.value }
       },

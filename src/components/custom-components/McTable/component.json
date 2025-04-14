@@ -1,6 +1,8 @@
 {
   "name": "表格",
-  "icon":"icon-daohang",
+  "icon":"icon-rongqi1",
+  "isSymbol": true,
+  "group": "布局组件",
   "children": [
     {
       "id": "21341546246354",

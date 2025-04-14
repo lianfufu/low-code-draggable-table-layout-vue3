@@ -1,5 +1,5 @@
 <template>
-  <div class="widget-shape drag" :style="{border:isSelected?'1px solid #159BD4FF':'none'}" ref="shapeRef" @contextmenu.prevent="showContextMenu" @click.stop="setCurComponent" @iframe-internal-click="handleIframeClick">
+  <div class="widget-shape drag" @mouseenter="doHoverElement" :style="{border:isSelected?'1px solid #159BD4FF':'none',outline:isHover?'1px dashed #155bd4':''}" ref="shapeRef" @contextmenu.prevent="showContextMenu" @click.stop="setCurComponent" @iframe-internal-click="handleIframeClick">
     <div class="operate-bar">
       <div class="f14" v-show="isSelected" @click.stop="doDeleteComponent">
         x
@@ -40,6 +40,15 @@ const emits=defineEmits(["deleteWidget"]);
 const isSelected=computed(()=>{
  return store.curComponent?.id===props.curComponent.id;
 });
+const isHover=computed(()=>{
+  return store.curHoverComponent?.id===props.curComponent.id;
+});
+
+function doHoverElement(event:any){
+  event.preventDefault();
+  event.stopPropagation();
+  store.curHoverComponent=props.curComponent;
+}
 
 function handleIframeClick(e){
   // // 创建虚拟点击事件
@@ -87,9 +96,9 @@ function showContextMenu(event:any){
   position: relative;
   width:100%;
   box-sizing: border-box;
-  &:hover{
-    outline:1px dashed $color-theme;
-  }
+  //&:hover{
+  //  outline:1px dashed $color-theme;
+  //}
   .operate-bar{
     width: 30px;
     text-align: center;

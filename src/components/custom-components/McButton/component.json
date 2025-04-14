@@ -1,6 +1,8 @@
 {
   "name": "按钮",
-  "icon": "icon-search",
+  "icon": "icon-anniuguanli-02",
+  "isSymbol": true,
+  "group": "表单组件",
   "fields": {
     "buttonText": {
       "label": "按钮文本内容",

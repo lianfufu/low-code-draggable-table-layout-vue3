@@ -2,7 +2,7 @@
   <div class="sc-epALIP dnileC baseCreateFilePanel__1_z5U createFilePanel__WRBeJ" id="createFilePanel">
     <div class="gird-wrapper  gridClassName__3LcuX">
       <div class="">
-        <div @click="jumpToCreateWidgetsProject" class="createFileBtnBox__aByYh a_c" id="createFileProcess" title="">
+        <div @click="createProject" class="createFileBtnBox__aByYh a_c" id="createFileProcess" title="">
           <div class="createFileBtnBorder__2e17p"></div>
           <div class="leftBox__I_oBH">
             <div data-eventkey="" class="defaultIcon__1dJFM blueFocusVisibleLine__9r-RK typeIcon__3hiIM"
@@ -53,7 +53,7 @@
         </div>
       </div>
       <div class="">
-        <div @click="jumpToCreateSchemaProject" class="createFileBtnBox__aByYh a_c" id="createWhiteBoardFileProcess" title="Schema">
+        <div @click="createProject" class="createFileBtnBox__aByYh a_c" id="createWhiteBoardFileProcess" title="Schema">
           <div class="createFileBtnBorder__2e17p"></div>
           <div class="leftBox__I_oBH">
             <div data-eventkey="" class="defaultIcon__1dJFM blueFocusVisibleLine__9r-RK typeIcon__3hiIM"
@@ -162,8 +162,13 @@
 
 import {
   importJsonToCreateWidgetsProject,
-  jumpToCreateSchemaProject, jumpToCreateWidgetsProject
+  addNewProject
 } from "@/components/workspace-components/CreateAndImportProject";
+import {useUserStore} from "@/store/userStore";
+const userStore=useUserStore();
+function createProject(){
+  addNewProject(userStore);
+}
 </script>
 
 <style scoped lang="scss">

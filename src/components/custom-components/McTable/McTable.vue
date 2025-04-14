@@ -116,6 +116,7 @@ watch(()=>designStore.currentPageData.pages,value=>{
   });
   reactiveData.columnWidths=tmpColumnWidths;
 
+  isFirstExecute.value=true;
 
   const tmpRowHeights=[];
   props.rowHeights?.forEach(item=>{
@@ -152,11 +153,7 @@ const isNeedUpateTableDataArr2=ref(true);
 watch(()=>[props.rowCount,props.colCount,reactiveData.tabData],(value)=>{
   if(isNeedUpateTableDataArr2.value){
     // console.log("[][]后",mytable);
-
-    const isHasYouZhi=reactiveData.tabData.filter(item=>item.rowIndex==13&&item.colIndex==0&&item.rowSpan==1&&item.colSpan==4);
-    if(isHasYouZhi&&isHasYouZhi.length>0){
-      console.log(isHasYouZhi,isHasYouZhi[0].rowIndex,isHasYouZhi[0].colIndex,isHasYouZhi[0].rowSpan,isHasYouZhi[0].colSpan,"isHasYouZhi");
-    }
+    props.rowCount===1&&props.colCount===4&&console.log(reactiveData.tabData,"响应式系统依赖多个值时的调试");
 
     const res = [];
     const tdRowColIndexToRemove = [];
@@ -180,7 +177,14 @@ watch(()=>[props.rowCount,props.colCount,reactiveData.tabData],(value)=>{
             // first.id = getRandomCode(8);
             res[i][j] = [first];
           } else {
-            res[i][j] = matchedChild;
+
+            res[i][j]=matchedChild;
+            // const tmpRes = matchedChild.filter(item=>item.component!=="MCTextContainer");
+            // if(tmpRes&&tmpRes.length>0){
+            //   res[i][j]=tmpRes;
+            // }else{
+            //   res[i][j]=matchedChild[0];
+            // }
           }
           const rowSpan = matchedChild[0].rowSpan;//认为多个同index的单元格的rowSpan数据一致
           const colSpan = matchedChild[0].colSpan;//认为多个同index的单元格的colSpan数据一致
@@ -209,82 +213,13 @@ watch(()=>[props.rowCount,props.colCount,reactiveData.tabData],(value)=>{
         }
       }
     }
-    console.log("最新的tableDataArr2",res,props.colCount,props.rowCount,reactiveData.myColCount,reactiveData.myRowCount);
+    console.log("最新的tableDataArr2",res,props.colCount,props.rowCount,reactiveData.myColCount,reactiveData.myRowCount,reactiveData.tabData);
     tableDataArr2.value=res;
   }
 },{
-  deep:true,
-  immediate:true
+  deep:true
 });
-// const tableDataArr3=computed(()=>{
-//   // if(!mytable||!mytable.value){
-//   //   console.log("[][]前",mytable);
-//   //   return [[]];
-//   // }
-//   console.log("[][]后",mytable);
-//
-//   const isHasYouZhi=reactiveData.tabData.filter(item=>item.rowIndex==13&&item.colIndex==0&&item.rowSpan==1&&item.colSpan==4);
-//   if(isHasYouZhi&&isHasYouZhi.length>0){
-//     console.log(isHasYouZhi,isHasYouZhi[0].rowIndex,isHasYouZhi[0].colIndex,isHasYouZhi[0].rowSpan,isHasYouZhi[0].colSpan,"isHasYouZhi");
-//   }
-//
-//   const res = [];
-//   const tdRowColIndexToRemove = [];
-//   for (let i = 0; i < props.rowCount; i++) {
-//     res[i] = [];
-//     for (let j = 0; j < props.colCount; j++) {
-//       // 初始化 res[i][j] 为一个空数组
-//       res[i][j] = [];
-//       //判断当前遍历的i，j是否属于被覆盖的单元格索引
-//       const matched = tdRowColIndexToRemove.findIndex(item => item.rowIndex === i && item.colIndex === j);
-//       if (matched !== -1) {
-//         res[i][j] = [];
-//         tdRowColIndexToRemove.splice(matched, 1);
-//         continue;
-//       }
-//       //获取component.json中预定义的匹配rowindex和colindex的项
-//       const matchedChild = reactiveData.tabData.filter(item => item.rowIndex === i && item.colIndex === j);
-//       if (matchedChild && matchedChild.length > 0) {
-//         if (matchedChild.length === 1) {
-//           const first = matchedChild[0];
-//           first.id = getRandomCode(8);
-//           res[i][j] = [first];
-//         } else {
-//           res[i][j] = matchedChild;
-//         }
-//         const rowSpan = matchedChild[0].rowSpan;//认为多个同index的单元格的rowSpan数据一致
-//         const colSpan = matchedChild[0].colSpan;//认为多个同index的单元格的colSpan数据一致
-//         if (rowSpan !== 1 || colSpan !== 1) {
-//           for (let k = i; k < rowSpan + i; k++) {
-//             for (let l = j; l < colSpan + j; l++) {
-//               if (k === i && l === j) {
-//                 continue;
-//               }
-//               tdRowColIndexToRemove.push({
-//                 rowIndex: k,
-//                 colIndex: l
-//               });
-//             }
-//           }
-//         }
-//       } else {
-//         res[i][j] = [{
-//           id: getRandomCode(8),
-//           component: "MCTextContainer",
-//           rowIndex: i,
-//           colIndex: j,
-//           rowSpan: 1,
-//           colSpan: 1,
-//         }];
-//       }
-//     }
-//   }
-//   console.log("最新的tableDataArr2",res);
-//   return res;
-// });
-watch(()=>tableDataArr2.value,(value)=>{
-  console.log("最新的tableDataArr2",value);
-})
+
 const isClickedTD=computed(()=>{
   if (!curComponent.value) {
     console.log("这里curComponent不存在才给的false");
@@ -299,7 +234,7 @@ const isClickedTD=computed(()=>{
 
 const emits=defineEmits(["update:rowCount","update:colCount","update:children","update:columnWidths","update:rowHeights"]);
 watch(()=>reactiveData.myRowCount,(value)=>{
-  console.log("行数变了myRowCount");
+  console.log("行数变了myRowCount",value);
   emits("update:rowCount", value);
 });
 watch(()=>reactiveData.myColCount,(value)=>{
@@ -325,6 +260,7 @@ watch(()=>reactiveData.tabData,(value)=>{
   immediate:true
 });
 const isFirstExecute=ref(true);
+// watch(()=>designStore)
 watch(()=>props.colCount,(value)=>{
   reactiveData.myColCount=props.colCount;
   if (!reactiveData.isToChangeColByNoneUI) {

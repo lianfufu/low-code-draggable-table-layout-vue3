@@ -2,8 +2,106 @@
   <div class="control-page">
     <div class="panel">
       <div class="panel-content">
-<!--        <control-nest-widget :list="widgets" @update:list="doUpdateList"/>-->
+<!--        <div class="wrapper">-->
+<!--&lt;!&ndash;          <van-skeleton :loading="isLoading" class="overlay">&ndash;&gt;-->
+<!--&lt;!&ndash;            <template #template>&ndash;&gt;-->
+<!--&lt;!&ndash;              <div style="width: 100%">&ndash;&gt;-->
+<!--&lt;!&ndash;                <van-search/>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div :style="{ display: 'flex', width: '100%',marginTop:'25px' }">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div style="padding:0 5px;flex:0 0 33.3333%">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <van-skeleton-image/>&ndash;&gt;-->
+<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div style="padding:0 5px;flex:0 0 33.3333%">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <van-skeleton-image/>&ndash;&gt;-->
+<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div style="padding:0 5px;flex:0 0 33.3333%">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <van-skeleton-image/>&ndash;&gt;-->
+<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div :style="{ flex: 1,marginTop:'25px',marginBottom:'10px' }">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <van-skeleton-paragraph/>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <van-skeleton-paragraph />&ndash;&gt;-->
+<!--&lt;!&ndash;                  <van-skeleton-paragraph />&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div style="border-radius: 10px;background-color: #fafafa;margin-top:25px;">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div :style="{ display: 'flex', width: '100%',flexWrap:'wrap' }">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div style="padding:0 5px;flex:0 0 25%;display:flex;flex-direction: column;align-items: center;justify-content: center">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <van-skeleton-image image-size="100%"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div style="margin-top: 10px;width:100%">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <van-skeleton-paragraph />&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div style="padding:5px 5px 0 5px;flex:0 0 25%;display:flex;flex-direction: column;align-items: center;justify-content: center">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <van-skeleton-image image-size="100%"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div style="margin-top: 10px;width:100%">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <van-skeleton-paragraph />&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div style="padding:5px 5px 0 5px;flex:0 0 25%;display:flex;flex-direction: column;align-items: center;justify-content: center">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <van-skeleton-image image-size="100%"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div style="margin-top: 10px;width:100%">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <van-skeleton-paragraph />&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div style="padding:5px 5px 0 5px;flex:0 0 25%;display:flex;flex-direction: column;align-items: center;justify-content: center">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <van-skeleton-image image-size="100%"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div style="margin-top: 10px;width:100%">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <van-skeleton-paragraph />&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div style="padding:5px 5px 0 5px;flex:0 0 25%;display:flex;flex-direction: column;align-items: center;justify-content: center">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <van-skeleton-image image-size="100%"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div style="margin-top: 10px;width:100%">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <van-skeleton-paragraph />&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div style="padding:5px 5px 0 5px;flex:0 0 25%;display:flex;flex-direction: column;align-items: center;justify-content: center">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <van-skeleton-image image-size="100%"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div style="margin-top: 10px;width:100%">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <van-skeleton-paragraph />&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div style="padding:5px 5px 0 5px;flex:0 0 25%;display:flex;flex-direction: column;align-items: center;justify-content: center">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <van-skeleton-image image-size="100%"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div style="margin-top: 10px;width:100%">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <van-skeleton-paragraph />&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div style="padding:5px 5px 0 5px;flex:0 0 25%;display:flex;flex-direction: column;align-items: center;justify-content: center">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <van-skeleton-image image-size="100%"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div style="margin-top: 10px;width:100%">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <van-skeleton-paragraph />&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div :style="{ flex: 1,marginTop:'25px',marginBottom:'10px' }">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <van-skeleton-paragraph/>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <van-skeleton-paragraph />&ndash;&gt;-->
+<!--&lt;!&ndash;                  <van-skeleton-paragraph />&ndash;&gt;-->
+<!--&lt;!&ndash;                  <van-skeleton-paragraph />&ndash;&gt;-->
+<!--&lt;!&ndash;                  <van-skeleton-paragraph />&ndash;&gt;-->
+<!--&lt;!&ndash;                  <van-skeleton-paragraph />&ndash;&gt;-->
+<!--&lt;!&ndash;                  <van-skeleton-paragraph />&ndash;&gt;-->
+<!--&lt;!&ndash;                  <van-skeleton-paragraph />&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </template>&ndash;&gt;-->
+<!--&lt;!&ndash;          </van-skeleton>&ndash;&gt;-->
+<!--          <iframe-->
+<!--              :key="componentKey"-->
+<!--              class="iframe-container"-->
+<!--              ref="iframeRef"-->
+<!--              frameborder="no"-->
+<!--              :style="{-->
+<!--            width:'100%',-->
+<!--            height:iframeHeight-->
+<!--          }"-->
+<!--              :src="iframeUrl"-->
+<!--          ></iframe>-->
+<!--        </div>-->
         <iframe
+            :key="componentKey"
             class="iframe-container"
             ref="iframeRef"
             frameborder="no"
@@ -26,26 +124,33 @@ import {useDesignStore} from "@/store/designStatusStore";
 import global from "@/configs/global";
 import _ from "lodash";
 
-// const panelContentRef=ref(null);
+const designStore=useDesignStore();
+const instanceId=computed(()=>{
+  return designStore.currentPageData.id||"001";
+});
 const iframeRef=ref(null);
 const iframeUrl=computed(function () {
-  return `${global.viewUrl}#/pages/index/index`;
+  return `${global.viewUrl}#/pages/outerUIPage/outerUIPage?instanceId=${instanceId.value}`;
 });
-const designStore=useDesignStore();
 const widgets=computed(()=>designStore.currentPageData.pages);
 
+
+const componentKey = ref("");
+
+watch(() => designStore.currentPageData, () => {
+  componentKey.value=designStore.currentPageData?.id||"";
+});
 
 const iframeHeight=computed(()=>designStore.iframeHeight);
 
 function readySendMessageHandler(e:any){
+  if (e.data?.meta?.instanceId !== instanceId.value) return;
   if (e.data.even === "ready") {
-    // iframeRef.value.contentWindow.postMessage(/* 数据 */);
     init();
   }
 }
 
-// const rawPages=ref<any>(null);
-// let rawStyles=ref<any>(null);
+
 let rawPages=null;
 let rawStyles=null;
 let listParams='';
@@ -76,7 +181,9 @@ function init(){
   iframeRef.value.contentWindow.postMessage(
       {
         even: "init",
+        isPage:true,
         params: { height: iframeHeight.value},
+        meta: { instanceId: instanceId.value }
       },
       "*"
   );
@@ -86,28 +193,17 @@ function init(){
   iframeRef.value.contentWindow.postMessage(
       {
         even: "list",
+        isPage:true,
         params: listParams,
+        meta: { instanceId: instanceId.value }
       },
       "*"
   );
 }
-// watch(()=>rawPages.value,(value,oldValue) => {
-//   console.log("rawPages还是发生过变化",value,oldValue);
-//   if(value){
-//     iframeRef.value.contentWindow.postMessage(
-//         {
-//           even: "list",
-//           params: {pageGlobalStyles:JSON.parse(JSON.stringify(toRaw(rawStyles.value))),
-//             pages:JSON.parse(JSON.stringify(toRaw(rawPages.value)))},
-//         },
-//         "*"
-//     );
-//   }
-// },{deep:true});
-//
+
 // //切换页面时，更新预览页显示的内容
 watch(()=>designStore.currentPageData,value=>{
-
+  // isLoading.value=true;
   rawPages = JSON.stringify(_.cloneDeep(toRaw(designStore.currentPageData.pages)));
   console.log(rawPages,"解析出的字符串");
   rawStyles=JSON.stringify(_.cloneDeep(toRaw(designStore.currentPageData.pageGlobalStyles)));
@@ -119,11 +215,28 @@ watch(()=>designStore.currentPageData,value=>{
   iframeRef.value.contentWindow.postMessage(
       {
         even: "list",
+        isPage:true,
         params: listParams,
+        meta: { instanceId: instanceId.value }
       },
       "*"
   );
 })
+
+// //处理加载状态
+// const isLoading=ref(true);
+// const isError=ref(false);
+// // 处理加载完成
+// const handleLoad = () => {
+//   isLoading.value = false;
+//   isError.value=false;
+// }
+//
+// // 处理加载错误
+// const handleError = () => {
+//   isLoading.value = false;
+//   isError.value=true;
+// }
 </script>
 
 <style scoped lang="scss">
@@ -147,9 +260,20 @@ watch(()=>designStore.currentPageData,value=>{
     }
   }
 }
-//.control-page::-webkit-scrollbar-track-piece {
-//  -webkit-border-radius: 6px;
-//}
+.wrapper{
+  height:800px;
+  position: relative;
+  .overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index:10;
+    padding-top: 10px;
+    background: rgba(255, 255, 255, 0.8);
+  }
+}
 .control-page::-webkit-scrollbar {
   width: 5px;
 }

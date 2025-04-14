@@ -17,8 +17,17 @@
           <div class="fileClassify__3K8gC" id="fileClassifyProcess">个人文件</div>
           <div class="separator__grrxT">/</div>
           <div class="">
-            <div class="dropBox__24rvG">
-              <div class="name__3IUc8 undefined">无标题</div>
+            <div class="dropBox__24rvG" @dblclick="editPage">
+              <div class="readonly-input" v-if="!isEditing">{{productTitle}}</div>
+              <input
+                  v-else
+                  class="readonly-input"
+                  v-model="productTitle"
+                  style="width:60px"
+                  @blur="saveEdit"
+                  @keyup.enter="saveEdit"
+                  ref="inputRefs"
+              >
             </div>
           </div>
           <div id="menuButtonProcess" data-eventkey=""
@@ -40,12 +49,19 @@
         </div>
       </div>
       <div class="centerHeadButton__35tSe"></div>
+      <div class="save_button">
+        <span class="save" title="保存" @click="doSave" v-show="!isProcessing"></span>
+        <span class="loading" title="保存" v-show="isProcessing"></span>
+        <Transition name="fade">
+          <span class="save_success" v-show="isShowSaveSuccess">保存成功</span>
+        </Transition>
+      </div>
       <div class="rightButtonPanel__1uVHS">
         <div class="rightButtonsBox__1pUUP">
           <div class="synergyAvatarPanel__1FrdA noRightLine__1SiuV">
             <div id="avatar-SGtkZ-BEJFidC3ub9UCt" @mouseenter="changeIsShowUserAvatarDropDown(true)" @mouseleave="changeIsShowUserAvatarDropDown(false)" class="a_c avatarsBox__2LVGi" style="">
               <div class="defaultAvatarComp__ESnVt smallSize__35RnG" style="background: rgb(65, 124, 252);">
-                <div class="avatarName__2ns9w">L</div>
+                <div class="avatarName__2ns9w">Y</div>
               </div>
               <div class="hoverBorder__FNMO8" style="width: 24px; height: 24px;"></div>
               <div class="avatarTipsBox__3hi28 synergyUserTips__1erwO">
@@ -72,7 +88,7 @@
          class="dropDown__17ejW hasLightTheme__K-mpM scrollListBox__1TwtG hasScrollBar__1c7Bs"
          style="width: 96px; right: 30px; max-height: 140px; top: 55px; overflow: visible;">
       <ul style="margin-top: 0px;">
-        <div @click="doLogout" class="optionBox__w6b5q isUndefined__l4Gcb hasLightTheme__K-mpM isSelect__R6kMB logout"
+        <div @click="doLogout(userStore)" class="optionBox__w6b5q isUndefined__l4Gcb hasLightTheme__K-mpM isSelect__R6kMB logout"
              data-text="创建文件" data-value="project">
           <li class="active isSelect__R6kMB hasLightTheme__K-mpM"
               style="font-size: 13px; height: 32px; text-align: center">
@@ -87,7 +103,9 @@
 <script setup lang="ts">
 import {useRouter} from "vue-router";
 import {doLogout} from "@/components/workspace-components/CreateAndImportProject";
-import {ref} from "vue";
+import {nextTick, onBeforeUnmount, ref, toRaw,watch} from "vue";
+import {useDesignStore} from "@/store/designStatusStore";
+import {useUserStore} from "@/store/userStore";
 
 const isShowUserAvatarDropDown=ref(false);
 let executeTimes = 0;
@@ -110,12 +128,101 @@ const router=useRouter();
 function backToWorkSpace(){
   router.push("/workspace");
 }
+
+const isProcessing=ref(false);
+const isShowSaveSuccess=ref(false);
+const designStore=useDesignStore();
+const userStore=useUserStore();
+
+let timerId=0;
+let loadingTimerId=100;
+
+async function doSave(){
+  clearTimeout(timerId);
+  isProcessing.value=true;
+  await new Promise((resolve)=>{
+    loadingTimerId = setTimeout(()=>{
+      resolve();
+    },200);
+  });
+  const curProduct = userStore.userCreatedProducts.filter(item=>item.id===designStore.product.id)[0];
+  const curPage = curProduct.pages.filter(item=>item.id===designStore.currentPageData.id)[0];
+  curPage.pageWidgets=JSON.parse(JSON.stringify(toRaw(designStore.currentPageData.pages)));
+  curProduct.configs.pageGlobalStyles=JSON.parse(JSON.stringify(toRaw(designStore.currentPageData.pageGlobalStyles)));
+  curProduct.configs.navigations=JSON.parse(JSON.stringify(toRaw(designStore.curNavigationConfig)));
+  isProcessing.value=false;
+  isShowSaveSuccess.value=true;
+  timerId = setTimeout(()=>{
+    isShowSaveSuccess.value=false;
+  },500);
+}
+
+onBeforeUnmount(()=>{
+  clearTimeout(timerId);
+  clearTimeout(loadingTimerId);
+});
+
+//编辑当前product的名称
+const isEditing=ref<boolean>(false);
+const productTitle=ref("");
+watch(()=>designStore.product.name,(value:string) => {
+  productTitle.value=value;
+},{
+  immediate:true
+});
+
+const saveEdit = () => {
+  isEditing.value = false;
+  //为了确保页面上修改的内容影响到了对应的data了
+  nextTick(() => {
+    if(productTitle.value===designStore.product.name){
+      return;
+    }
+    const curProduct = userStore.userCreatedProducts.filter(item=>item.id===designStore.product.id)[0];
+    curProduct.name=productTitle.value;
+  })
+};
+
+let isDbClick=false;
+// let timer:number=0;
+const inputRefs = ref<HTMLInputElement[]>([]);
+// 开始编辑，双击事件
+const editPage = (index: number) => {
+  isDbClick=true;
+  console.log("开始编辑时触发的编辑索引为：",index);
+  isEditing.value = true;
+  nextTick(() => {
+    inputRefs.value[index]?.focus();
+    inputRefs.value[index]?.select(); // 新增此行
+  });
+};
 </script>
 
 <style scoped lang="scss">
+@keyframes loading-rotate {
+  0%{
+    transform: rotate(0deg);
+  }
+  50%{
+    transform:rotate(180deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
 :root {
   --color-bg-brand: #1890ff; // 定义原始 CSS 变量
   --color-theme-blue: var(--color-bg-brand);
+}
+button, input, keygen, select, textarea {
+  border: none;
+  color: black;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Helvetica Neue, sans-serif;
+  outline: none;
+}
+
+input {
+  cursor: default;
 }
 [data-preferred-theme-light=blueThemeLight] {
   --color-theme-light: var(--color-theme-blue);
@@ -127,6 +234,72 @@ function backToWorkSpace(){
 .lightTheme .header__366yk {
   border-bottom: none;
   box-shadow: inset 0 -1px 0 #e8e8e8;
+}
+.save_button{
+  display:flex;
+  width: 200px;
+  height:16px;
+  margin-left:10px;
+  padding-top:5px;
+  justify-content: center;
+  align-items:center;
+  position:relative;
+  span.save{
+    width:16px;
+    height:16px;
+    position:absolute;
+    left:0;
+    top:0;
+    cursor:pointer;
+    &::before{
+      content:"";
+      display:inline-block;
+      width:16px;
+      height:16px;
+      background:url("@/assets/save.png") no-repeat;
+    }
+  }
+  span.loading{
+    width:16px;
+    height:16px;
+    position:absolute;
+    left:0;
+    top:0;
+    cursor:pointer;
+    animation: loading-rotate 800ms ease-in-out infinite;
+    &::before{
+      content:"";
+      display:inline-block;
+      width:16px;
+      height:16px;
+      background:url("@/assets/loading.png") no-repeat;
+    }
+  }
+  span.save_success{
+    font-size: 14px;
+    color:darkgray;
+    position:absolute;
+    top:-2px;
+    left:25px;
+  }
+}
+.fade-leave-active {
+  transition: opacity 0.8s ease;
+}
+
+.readonly-input {
+  height: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre;
+  vertical-align: middle;
+  line-height: 32px;
+  font-size: 15px;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 .header__366yk {
   box-sizing: border-box;

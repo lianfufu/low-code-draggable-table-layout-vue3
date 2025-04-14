@@ -2,7 +2,7 @@
   <div class="control-page">
     <div class="panel">
       <div class="panel-content" :style="panelContentStyle" @mousedown="eventTargetSourceIsTD" ref="panelContentRef">
-        <control-nest-widget :list="widgets" @update:list="doUpdateList"/>
+        <control-nest-widget :key="componentKey" :list="widgets" @update:list="doUpdateList"/>
       </div>
     </div>
   </div>
@@ -18,16 +18,23 @@ import {useStore} from "@/store";
 const store=useStore();
 const designStore=useDesignStore();
 const widgets=computed(()=>designStore.currentPageData.pages);
-watch(()=>designStore.currentPageData.pages,value=>{
-  console.log("designStore.currentPageData发生了变化",value);
-},{
-  deep:true
+
+const componentKey = ref("");
+
+watch(() => designStore.currentPageData, () => {
+  componentKey.value=designStore.currentPageData?.id||"";
 });
-watch(()=>widgets.value,value=>{
-  console.log("widgets发生了变化",value);
-},{
-  deep:true
-});
+
+// watch(()=>designStore.currentPageData.pages,value=>{
+//   console.log("designStore.currentPageData发生了变化",value);
+// },{
+//   deep:true
+// });
+// watch(()=>widgets.value,value=>{
+//   console.log("widgets发生了变化",value);
+// },{
+//   deep:true
+// });
 const isClickedTD=ref<boolean>(false);
 function eventTargetSourceIsTD(){
   isClickedTD.value = event.target.nodeName === "TD";

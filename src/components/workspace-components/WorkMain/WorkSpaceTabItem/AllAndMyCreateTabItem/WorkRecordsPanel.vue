@@ -2,262 +2,8 @@
   <div class="cardListBox__1V4Cv" id="cardListPanel" style="position: relative;">
     <div class="sc-epALIP dnileC">
       <div class="gird-wrapper">
-        <div class="sc-dJiZtA hLvKZi minCss__3r855" data-id="67ce9766cbaba933b6840e7c" data-type="file"
-             data-selectable="true">
-          <div class="empty-box"></div>
-          <div class="cardPanel__28Rxy cursor-pointer__34ZCy cardBorder__2ci0X"
-               data-id="67ce9766cbaba933b6840e7c" data-recentteamid="" data-recentpermission="false">
-            <div class="cardHeaderWrap__gz9CA">
-              <div class="cardImg__hkb_D">
-                <div class="coverImg__3A3It undefined">
-                  <div class="containImg__2c-Hn baseFillClass__2T0Cl"
-                       style="background-image: url(&quot;https://img.js.design/assets/coverImg/YU0T6_845b61a0e0bf22383dd7754df70998c0.png&quot;);"></div>
-                </div>
-                <div class="newAvatarsBox__3evzo">
-                  <div class="avatarWrapCss__12kZa">
-                    <div class="avatarItem__2I8YO cursor-pointer__34ZCy avatarItemHover__OQkQl"
-                         style="z-index: 5;">
-                      <div class="defaultAvatarComp__ESnVt teamSize__2hFaO"
-                           style="background: rgb(65, 124, 252);">
-                        <div class="avatarName__2ns9w">L</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="cardBottom__44sGZ">
-              <div class="cardInfoBox__1wjo2">
-                <div class="cardNameBox__Pe2Mk">
-                  <div class="cardName__264_J" title="无标题" style="max-width: calc(100% - 24px);">
-                    无标题
-                  </div>
-                </div>
-                <div class="createDateBox__2oHo0">
-                  <div class="popupPortal__1ytgj" style="width: 100%;">
-                    <div role="tooltip" class="" style="width: 100%;">
-                      <div class="date__29AkG">前天15:47</div>
-                    </div>
-                    <div class="textCalculateContainer__yN-IV" style="font-size: 12px;">前天15:47</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="sc-dJiZtA hLvKZi minCss__3r855" data-id="67ce975b21843ec284d3c6db" data-type="file"
-             data-selectable="true">
-          <div class="empty-box"></div>
-          <div class="cardPanel__28Rxy cursor-pointer__34ZCy cardBorder__2ci0X"
-               data-id="67ce975b21843ec284d3c6db" data-recentteamid="" data-recentpermission="false">
-            <div class="cardHeaderWrap__gz9CA">
-              <div class="cardImg__hkb_D">
-                <div class="newAvatarsBox__3evzo">
-                  <div class="avatarWrapCss__12kZa">
-                    <div class="avatarItem__2I8YO cursor-pointer__34ZCy avatarItemHover__OQkQl"
-                         style="z-index: 5;">
-                      <div class="defaultAvatarComp__ESnVt teamSize__2hFaO"
-                           style="background: rgb(65, 124, 252);">
-                        <div class="avatarName__2ns9w">L</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="cardBottom__44sGZ">
-              <div class="cardInfoBox__1wjo2">
-                <div class="cardNameBox__Pe2Mk">
-                  <div class="cardName__264_J" title="无标题" style="max-width: calc(100% - 24px);">
-                    无标题
-                  </div>
-                </div>
-                <div class="createDateBox__2oHo0">
-                  <div class="popupPortal__1ytgj" style="width: 100%;">
-                    <div role="tooltip" class="" style="width: 100%;">
-                      <div class="date__29AkG">前天15:40</div>
-                    </div>
-                    <div class="textCalculateContainer__yN-IV" style="font-size: 12px;">前天15:40</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="sc-dJiZtA hLvKZi minCss__3r855" data-id="67ce9515970c2fff36377f86" data-type="file"
-             data-selectable="true">
-          <div class="empty-box"></div>
-          <div class="cardPanel__28Rxy cursor-pointer__34ZCy cardBorder__2ci0X"
-               data-id="67ce9515970c2fff36377f86" data-recentteamid="" data-recentpermission="false">
-            <div class="cardHeaderWrap__gz9CA">
-              <div class="cardImg__hkb_D">
-                <div class="coverImg__3A3It undefined">
-                  <div class="containImg__2c-Hn baseFillClass__2T0Cl"
-                       style="background-image: url(&quot;https://img.js.design/assets/coverImg/Jf2hfbad6b9298965717a3e4fc70dff14c0e54.png&quot;);"></div>
-                </div>
-                <div class="newAvatarsBox__3evzo">
-                  <div class="avatarWrapCss__12kZa">
-                    <div class="avatarItem__2I8YO cursor-pointer__34ZCy avatarItemHover__OQkQl"
-                         style="z-index: 5;">
-                      <div class="defaultAvatarComp__ESnVt teamSize__2hFaO"
-                           style="background: rgb(65, 124, 252);">
-                        <div class="avatarName__2ns9w">L</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="cardBottom__44sGZ">
-              <div class="cardInfoBox__1wjo2">
-                <div class="cardNameBox__Pe2Mk">
-                  <div class="cardName__264_J" title="饿了么页面模版库"
-                       style="max-width: calc(100% - 24px);">饿了么页面模版库
-                  </div>
-                </div>
-                <div class="createDateBox__2oHo0">
-                  <div class="popupPortal__1ytgj" style="width: 100%;">
-                    <div role="tooltip" class="" style="width: 100%;">
-                      <div class="date__29AkG">前天15:30</div>
-                    </div>
-                    <div class="textCalculateContainer__yN-IV" style="font-size: 12px;">前天15:30</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="sc-dJiZtA hLvKZi minCss__3r855" data-id="67ce94b1970c2fff36249d59" data-type="file"
-             data-selectable="true">
-          <div class="empty-box"></div>
-          <div class="cardPanel__28Rxy cursor-pointer__34ZCy cardBorder__2ci0X"
-               data-id="67ce94b1970c2fff36249d59" data-recentteamid="" data-recentpermission="false">
-            <div class="cardHeaderWrap__gz9CA">
-              <div class="cardImg__hkb_D">
-                <div class="coverImg__3A3It undefined">
-                  <div class="coverImg__3A3It baseFillClass__2T0Cl"
-                       style="background-image: url(&quot;https://img.js.design/assets/coverImg/iRw7K3b94e503fe0c16d4891e0c5457c9f20ac.png&quot;);"></div>
-                </div>
-                <div class="newAvatarsBox__3evzo">
-                  <div class="avatarWrapCss__12kZa">
-                    <div class="avatarItem__2I8YO cursor-pointer__34ZCy avatarItemHover__OQkQl"
-                         style="z-index: 5;">
-                      <div class="defaultAvatarComp__ESnVt teamSize__2hFaO"
-                           style="background: rgb(65, 124, 252);">
-                        <div class="avatarName__2ns9w">L</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="cardBottom__44sGZ">
-              <div class="cardInfoBox__1wjo2">
-                <div class="cardNameBox__Pe2Mk">
-                  <div class="cardName__264_J" title="新手教程" style="max-width: calc(100% - 24px);">
-                    新手教程
-                  </div>
-                </div>
-                <div class="createDateBox__2oHo0">
-                  <div class="popupPortal__1ytgj" style="width: 100%;">
-                    <div role="tooltip" class="" style="width: 100%;">
-                      <div class="date__29AkG">前天15:29</div>
-                    </div>
-                    <div class="textCalculateContainer__yN-IV" style="font-size: 12px;">前天15:29</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="sc-dJiZtA hLvKZi minCss__3r855" data-id="67ce93a7970c2fff36f46be6" data-type="file"
-             data-selectable="true">
-          <div class="empty-box"></div>
-          <div class="cardPanel__28Rxy cursor-pointer__34ZCy cardBorder__2ci0X"
-               data-id="67ce93a7970c2fff36f46be6" data-recentteamid="" data-recentpermission="false">
-            <div class="cardHeaderWrap__gz9CA">
-              <div class="cardImg__hkb_D">
-                <div class="coverImg__3A3It undefined">
-                  <div class="containImg__2c-Hn baseFillClass__2T0Cl"
-                       style="background-image: url(&quot;https://img.js.design/assets/coverImg/xMMB1sf4c5b95e709ad713f4a85b55f5068649.png&quot;);"></div>
-                </div>
-                <div class="newAvatarsBox__3evzo">
-                  <div class="avatarWrapCss__12kZa">
-                    <div class="avatarItem__2I8YO cursor-pointer__34ZCy avatarItemHover__OQkQl"
-                         style="z-index: 5;">
-                      <div class="defaultAvatarComp__ESnVt teamSize__2hFaO"
-                           style="background: rgb(65, 124, 252);">
-                        <div class="avatarName__2ns9w">L</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="cardBottom__44sGZ">
-              <div class="cardInfoBox__1wjo2">
-                <div class="cardNameBox__Pe2Mk">
-                  <div class="cardName__264_J" title="B端电商数据管理"
-                       style="max-width: calc(100% - 24px);">B端电商数据管理
-                  </div>
-                </div>
-                <div class="createDateBox__2oHo0">
-                  <div class="popupPortal__1ytgj" style="width: 100%;">
-                    <div role="tooltip" class="" style="width: 100%;">
-                      <div class="date__29AkG">前天15:24</div>
-                    </div>
-                    <div class="textCalculateContainer__yN-IV" style="font-size: 12px;">前天15:24</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="sc-dJiZtA hLvKZi minCss__3r855" data-id="67ce8b5e970c2fff36793dfc" data-type="file"
-             data-selectable="true">
-          <div class="empty-box"></div>
-          <div class="cardPanel__28Rxy cursor-pointer__34ZCy cardBorder__2ci0X"
-               data-id="67ce8b5e970c2fff36793dfc" data-recentteamid="" data-recentpermission="false">
-            <div class="cardHeaderWrap__gz9CA">
-              <div class="cardImg__hkb_D">
-                <div class="coverImg__3A3It undefined">
-                  <div class="containImg__2c-Hn baseFillClass__2T0Cl"
-                       style="background-image: url(&quot;https://img.js.design/assets/coverImg/6jk59yf7adb50c6cfe1625489116551d80fb6b.png&quot;);"></div>
-                </div>
-                <div class="newAvatarsBox__3evzo">
-                  <div class="avatarWrapCss__12kZa">
-                    <div class="avatarItem__2I8YO cursor-pointer__34ZCy avatarItemHover__OQkQl"
-                         style="z-index: 5;">
-                      <div class="defaultAvatarComp__ESnVt teamSize__2hFaO"
-                           style="background: rgb(65, 124, 252);">
-                        <div class="avatarName__2ns9w">L</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="cardBottom__44sGZ">
-              <div class="cardInfoBox__1wjo2">
-                <div class="cardNameBox__Pe2Mk">
-                  <div class="cardName__264_J" title="智能家居类小程序界面设计"
-                       style="max-width: calc(100% - 24px);">智能家居类小程序界面设计
-                  </div>
-                </div>
-                <div class="createDateBox__2oHo0">
-                  <div class="popupPortal__1ytgj" style="width: 100%;">
-                    <div role="tooltip" class="" style="width: 100%;">
-                      <div class="date__29AkG">前天15:14</div>
-                    </div>
-                    <div class="textCalculateContainer__yN-IV" style="font-size: 12px;">前天15:14</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="sc-dJiZtA hLvKZi minCss__3r855" data-id="67ce8b58970c2fff36784dfd" data-type="file"
-             data-selectable="true">
+        <div v-for="item in operationRecord" :key="item.id" class="sc-dJiZtA hLvKZi minCss__3r855" data-id="67ce8b58970c2fff36784dfd" data-type="file"
+             data-selectable="true" @click="navigateToDesignPage(item.id)" style="cursor: pointer;">
           <div class="empty-box"></div>
           <div class="cardPanel__28Rxy cursor-pointer__34ZCy cardBorder__2ci0X"
                data-id="67ce8b58970c2fff36784dfd" data-recentteamid="" data-recentpermission="false">
@@ -265,7 +11,7 @@
               <div class="cardImg__hkb_D">
                 <div class="coverImg__3A3It undefined">
                   <div class="containImg__2c-Hn baseFillClass__2T0Cl"
-                       style="background-image: url(&quot;https://img.js.design/assets/coverImg/WRetff614f2e389d71121a88069043dd57dc34.png&quot;);"></div>
+                       :style="{backgroundImage: `url(${item.image})`}"></div>
                 </div>
                 <div class="newAvatarsBox__3evzo">
                   <div class="avatarWrapCss__12kZa">
@@ -283,16 +29,16 @@
             <div class="cardBottom__44sGZ">
               <div class="cardInfoBox__1wjo2">
                 <div class="cardNameBox__Pe2Mk">
-                  <div class="cardName__264_J" title="易搭创<新人进阶指南>"
-                       style="max-width: calc(100% - 24px);">易搭创&lt;新人进阶指南&gt;
+                  <div class="cardName__264_J" title="趣易搭<新人进阶指南>"
+                       style="max-width: calc(100% - 24px);">{{item.title}}
                   </div>
                 </div>
                 <div class="createDateBox__2oHo0">
                   <div class="popupPortal__1ytgj" style="width: 100%;">
                     <div role="tooltip" class="" style="width: 100%;">
-                      <div class="date__29AkG">前天14:48</div>
+                      <div class="date__29AkG">{{item.operationTime}}</div>
                     </div>
-                    <div class="textCalculateContainer__yN-IV" style="font-size: 12px;">前天14:48</div>
+                    <div class="textCalculateContainer__yN-IV" style="font-size: 12px;">{{item.operationTime}}</div>
                   </div>
                 </div>
               </div>
@@ -305,7 +51,55 @@
 </template>
 
 <script setup lang="ts">
+// import ly from "@/assets/lyrecord.png";
+// import gy from "@/assets/gyrecord.png";
+import {ref} from "vue";
+import {useRouter} from "vue-router";
+import {useUserStore} from "@/store/userStore";
+type OperationRecordItemType={
+  id:string,
+  image:string,
+  title:string,
+  operationTime:string,
+}
+const NoImageRecord:OperationRecordItemType={
+  id:"news001",
+  title:"无标题",
+  image:"https://img.js.design/assets/coverImg/YU0T6_845b61a0e0bf22383dd7754df70998c0.png",
+  operationTime:"2025-03-21 13:14"
+}
+const operationRecord=ref<any[]>([
+  // {
+  //   ...NoImageRecord,
+  // },
+  // {
+  //   title:"旅游吧-设计",
+  //   id:"ly001",
+  //   image:ly,
+  //   operationTime:"2025-03-25 17:18"
+  // },
+  // {
+  //   id:"gy001",
+  //   title:"公园吧-设计",
+  //   image:gy,
+  //   operationTime:"2025-03-27 9:42"
+  // }
+]);
+const userStore=useUserStore();
+// operationRecord.push(...NoImageRecord);
+userStore.userCreatedProducts.forEach(item=>{
+  operationRecord.value.push({
+    id:item.id,
+    title:item.name,
+    image:item.recordCover,
+    operationTime:item.updateTime
+  });
+});
 
+const router=useRouter();
+function navigateToDesignPage(id:string){
+  router.push(`/designbuild?productId=${id}`);
+}
 </script>
 
 <style scoped lang="scss">

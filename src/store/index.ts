@@ -5,6 +5,7 @@ export const useStore = defineStore('main', () => {
     const initializing=ref<any>(null);
     const fields=ref<any>(null);//所有的定义过的字段集合
     const curComponent=ref<any>(null);
+    const curHoverComponent=ref<any>(null);
     const curStateFields=ref<any>(null);//为实现curFields“可写入能力”，在curFields之上定义的state中的curFields
     const curFields=computed(()=>{
         if(curComponent.value?.component==="McImg"||
@@ -32,6 +33,7 @@ export const useStore = defineStore('main', () => {
         initializing,
         fields,
         curComponent,
+        curHoverComponent,
         curStateFields,
         curFields,
     }

@@ -265,47 +265,8 @@
           <div>
             <div aria-label="grid" aria-readonly="true" class="ReactVirtualized__Grid ReactVirtualized__List"
                  id="fileMenuList" role="grid"
-                 style="box-sizing: border-box; direction: ltr; height: 461px; position: relative; width: 235px; will-change: transform; overflow: hidden; outline: none; scrollbar-width: none;">
-              <div class="ReactVirtualized__Grid__innerScrollContainer" role="rowgroup"
-                   style="width: auto; height: 32px; max-width: 235px; max-height: 32px; overflow: hidden; position: relative;">
-                <div style="height: 32px; left: 0px; position: absolute; top: 0px; width: 100%;">
-                  <div data-folder="true" data-id="0:1" data-deep="0" data-isfixed="false"
-                       class="layerPanel__1TQCJ framePanel__1IDIL" contenteditable="false">
-                    <div style="width: 6px; height: 100%; flex-shrink: 0;"></div>
-                    <div data-drag="hide" class="designIcon__1566t triangleIcon__1pPRl noTriangleIcon__2KgJw"></div>
-                    <div class="shape__3k6A7">
-                      <div>
-                        <div class="designIcon__1566t">
-                          <div style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;">
-                            <!--?xml version="1.0" encoding="UTF-8"?-->
-                            <svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1"
-                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                              <g id="画板备份" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <path
-                                    d="M5,2.3 L5,3.799 L11,3.799 L11,2.3 L12.2,2.3 L12.2,3.799 L13.7,3.8 L13.7,5 L12.2,4.999 L12.2,10.999 L13.7,11 L13.7,12.2 L12.2,12.199 L12.2,13.7 L11,13.7 L11,12.199 L5,12.199 L5,13.7 L3.8,13.7 L3.8,12.199 L2.3,12.2 L2.3,11 L3.8,10.999 L3.8,4.999 L2.3,5 L2.3,3.8 L3.8,3.799 L3.8,2.3 L5,2.3 Z M11,4.999 L5,4.999 L5,10.999 L11,10.999 L11,4.999 Z"
-                                    id="iconSvg" fill="rgba(32, 32, 32, 1)"></path>
-                              </g>
-                            </svg>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="frameName__2pv0V">
-                      <div class="list-change-name__1iUrS C-name-input__2hfj- isFirstFrame__1GH8g">
-                        <div class="readonly-input"
-                             style="width: 184px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                          iPhone 14 Pro Max 1
-                        </div>
-                        <pre>iPhone 14 Pro Max 1</pre>
-                      </div>
-                    </div>
-                    <div data-drag="hide" class="lockInvisibleButton__qTnQ3 undefined" style="right: 14px;">
-                      <div class="emptyIcon__1gh8q"></div>
-                      <div class="emptyIcon__1gh8q"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                 style="box-sizing: border-box; direction: ltr; position: relative; width: 100%; will-change: transform; overflow: hidden; outline: none; scrollbar-width: none;">
+              <ComponentTree :widgets="designStore.currentPageData.pages"/>
             </div>
           </div>
         </div>
@@ -324,6 +285,8 @@ import {useResizeDomColumnSize, useResizeDomRowSize} from "@/hooks/useResizeDomS
 import ListWidgetsComponents from "@/components/designview-components/core-design-components/ListWidgetsComponents.vue";
 import {useDesignStore} from "@/store/designStatusStore";
 import {useStore} from "@/store";
+import { v4 as uuidv4 } from 'uuid';
+import ComponentTree from "@/components/designview-components/ComponentTree.vue";
 
 const designStore = useDesignStore();
 
@@ -335,7 +298,9 @@ const initializing=computed(()=>{
 const navInitializing=ref([{
   "component": "McNav",
   "name": "导航",
-  "icon": "icon-daohang",
+  "icon": "icon-dibudaohang",
+  "group": "普通导航",
+  "isSymbol": true,
   "tabList": [
     {
       "id": "0001",
@@ -388,6 +353,7 @@ function handlePickTabItem(event) {
 
 interface PageItem {
   name: string;
+  id:string;
   isEditing: boolean;
   isPicked:boolean;
 }
@@ -397,20 +363,26 @@ const inputRefs = ref<HTMLInputElement[]>([]);
 const pickedPageName = computed(() => designStore.currentPageName);
 const pages = ref<PageItem[]>([]);
 const pageCount = computed(() => pages.value.length);
-// watch(()=>designStore.pageNamesWithPageDataMap.ke)
+
+
 onMounted(() => {
   const results:PageItem[] = [];
   // console.log(1);
+  if(designStore.pageNamesWithPageDataMap.size===0){
+    return;
+  }
   designStore.pageNamesWithPageDataMap.forEach((value, key) => {
-    results.push({name: key, isEditing: false,isPicked:false});
+    results.push({name: key,id:value.id, isEditing: false,isPicked:false});
   });
   // console.log(2);
   results[0].isPicked=true;//默认选中第一项
   pages.value = results;
 })
+
 // 添加新页面
 const addPage = () => {
   const newPage = {
+    id:uuidv4(),
     name: `页面${pages.value.length + 1}`,
     isEditing: true, // 新增页面自动进入编辑状态
     isPicked:false
@@ -476,7 +448,7 @@ const saveEdit = (index: number) => {
     //代表是新增项
     console.log("失去焦点时执行：",designStore.pageNamesWithPageDataMap.size === pageCount.value,designStore.pageNamesWithPageDataMap.size,pageCount.value);
     if (designStore.pageNamesWithPageDataMap.size !== pageCount.value) {
-      designStore.pageNamesWithPageDataMap.set(pages.value[index].name, {pageGlobalStyles:{padding:0,backgroundColor:"purple"},pages:[]});
+      designStore.pageNamesWithPageDataMap.set(pages.value[index].name, {id:pages.value[index].id,pageGlobalStyles:designStore.currentPageData.pageGlobalStyles,pages:[]});//要始终确保designStore.pageNamesWithPageDataMap的个数大于0
       console.log("/代表是新增项");
     } else {
       const mapArray = Array.from(designStore.pageNamesWithPageDataMap);
@@ -491,8 +463,6 @@ const saveEdit = (index: number) => {
     console.log("修改后的编辑状态值",Array.from(designStore.pageNamesWithPageDataMap));
   })
 };
-
-// watch(()=>designStore.currentPageName)
 
 
 //控制页面选项栏的折叠和展开
@@ -1410,176 +1380,7 @@ button, input, keygen, select, textarea {
   scrollbar-width: none;
 }
 
-//树形内容
-.framePanel__1IDIL {
-  color: hsla(0, 0%, 100%, .8);
-}
 
-.layerPanel__1TQCJ {
-  align-items: center;
-  display: inline-flex;
-  font-size: 12px;
-  height: 32px;
-  position: relative;
-  width: 100%;
-}
-
-.blueBg02__2fGn0 {
-  background: rgba(0, 142, 250, .2) !important;
-}
-
-.lightTheme .layerPanel__1TQCJ.select-panel__1j9Wh > .designIcon__1566t {
-  background: transparent;
-}
-
-.layerPanel__1TQCJ.select-panel__1j9Wh .designIcon__1566t, .layerPanel__1TQCJ.select-panel__1j9Wh .frameName__2pv0V, .layerPanel__1TQCJ.select-panel__1j9Wh .shape__3k6A7 {
-  opacity: 1;
-}
-
-.lightTheme .layerPanel__1TQCJ > .designIcon__1566t {
-  background: transparent;
-}
-
-.layerPanel__1TQCJ > .designIcon__1566t {
-  background: transparent;
-  flex-shrink: 0;
-  height: 16px;
-  position: relative;
-  width: 16px;
-}
-
-.noTriangleIcon__2KgJw {
-  visibility: hidden;
-}
-
-.triangleIcon__1pPRl {
-  margin-left: 0;
-}
-
-.layerPanel__1TQCJ > .designIcon__1566t:before {
-  background-size: 16px 16px;
-  content: "";
-  height: 16px;
-  opacity: .6;
-  position: absolute;
-  width: 16px;
-}
-
-.lightTheme .triangleIcon__1pPRl:before {
-  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iIzAwMCIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTEuNDYgNi4zMzNINC41NGwzLjQ2IDQgMy40Ni00WiIgY2xpcC1ydWxlPSJldmVub2RkIiBvcGFjaXR5PSIuNiIvPjwvc3ZnPg==);
-}
-
-.triangleIcon__1pPRl:before {
-  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI2ZmZiIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTEuNDYgNi4zMzNINC41NGwzLjQ2IDQgMy40Ni00WiIgY2xpcC1ydWxlPSJldmVub2RkIiBvcGFjaXR5PSIuNiIvPjwvc3ZnPg==);
-  transform: rotate(-90deg);
-}
-
-.layerPanel__1TQCJ.select-panel__1j9Wh .designIcon__1566t, .layerPanel__1TQCJ.select-panel__1j9Wh .frameName__2pv0V, .layerPanel__1TQCJ.select-panel__1j9Wh .shape__3k6A7 {
-  opacity: 1;
-}
-
-.shape__3k6A7 {
-  position: relative;
-  z-index: 11;
-}
-
-.layerPanel__1TQCJ.select-panel__1j9Wh .designIcon__1566t, .layerPanel__1TQCJ.select-panel__1j9Wh .frameName__2pv0V, .layerPanel__1TQCJ.select-panel__1j9Wh .shape__3k6A7 {
-  opacity: 1;
-}
-
-.shape__3k6A7 .designIcon__1566t {
-  background: transparent;
-  height: 16px;
-  opacity: .6;
-  position: relative;
-  width: 16px;
-}
-
-.shape__3k6A7 .designIcon__1566t:before {
-  background-size: 16px 16px;
-  content: "";
-  height: 16px;
-  position: absolute;
-  width: 16px;
-}
-
-.layerPanel__1TQCJ.select-panel__1j9Wh .designIcon__1566t, .layerPanel__1TQCJ.select-panel__1j9Wh .frameName__2pv0V, .layerPanel__1TQCJ.select-panel__1j9Wh .shape__3k6A7 {
-  opacity: 1;
-}
-
-.lightTheme .frameName__2pv0V {
-  color: #202020;
-  opacity: 1;
-}
-
-.frameName__2pv0V {
-  align-items: center;
-  color: #fff;
-  display: flex;
-  height: 100%;
-  line-height: 32px;
-  margin-left: 4px;
-  opacity: .8;
-}
-
-.lightTheme .C-name-input__2hfj-, .lightTheme .C-name-input__2hfj-.isFirstFrame__1GH8g {
-  color: #202020;
-}
-
-.C-name-input__2hfj-.isFirstFrame__1GH8g {
-  color: hsla(0, 0%, 100%, .9);
-  font-weight: 700;
-}
-
-.C-name-input__2hfj- {
-  background: transparent;
-  color: #fff;
-  position: relative;
-}
-
-.list-change-name__1iUrS {
-  height: 100%;
-}
-
-.list-change-name__1iUrS .readonly-input {
-  height: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: pre;
-}
-
-.list-change-name__1iUrS .readonly-input {
-  height: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: pre;
-}
-
-.C-name-input__2hfj- pre {
-  display: none;
-  float: left;
-}
-
-.C-name-input__2hfj- input, .C-name-input__2hfj- pre, .C-name-input__2hfj- textarea {
-  background: transparent;
-  color: inherit;
-  font-size: inherit;
-  line-height: 1.5;
-  white-space: nowrap;
-}
-
-.lockInvisibleButton__qTnQ3 {
-  align-items: center;
-  display: flex;
-  height: 100%;
-  position: absolute;
-}
-
-.designIcon__3iVfV, .emptyIcon__1gh8q {
-  height: 24px;
-  position: relative;
-  width: 24px;
-}
 
 
 //右侧宽度拖拽柄

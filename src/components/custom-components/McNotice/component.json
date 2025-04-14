@@ -1,6 +1,8 @@
 {
  "name": "公告",
  "icon": "icon-gonggao",
+  "isSymbol": false,
+  "group": "展示组件",
  "fields":{
   "noticeContent": {
     "label": "公告内容",

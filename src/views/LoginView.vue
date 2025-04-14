@@ -4,8 +4,7 @@
       ×
     </div>
     <div class="logo">
-      <img src="../assets/yunda.png">
-      <h1>易搭创</h1>
+      <img src="../assets/quyida.png"/>
     </div>
     <div class="main-wrap">
       <div class="login-left">
@@ -37,7 +36,7 @@
         <div class="cardWrap__11T-W cardShow__3tsNI">
           <main class="loginCard__ScNRM">
             <div class="loginCardHeader__Vo7k5" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1; visibility: inherit;">
-              <h1>登录易搭创账户</h1>
+              <h1>登录趣易搭账户</h1>
               <div class="switchAccount__2CSnM">
                 <span>没有账户？</span>
                 <div data-type="button" class="cursor-new-pointer__bO-95">
@@ -122,11 +121,17 @@
 
 <script setup lang="ts">
 import {useRouter} from "vue-router";
+import {useUserStore} from "@/store/userStore";
 
 const emits=defineEmits(["close"]);
 const router=useRouter();
+const userStore=useUserStore();
 function handleLoginByVisitor(){
   setTimeout(()=>{
+    userStore.userInfo={
+      userId:"youke",
+      userName:"Y",
+    }
     router.push("/workspace");
   },200);
 }
@@ -586,7 +591,7 @@ function handleLoginByVisitor(){
   left: 50px;
   top: 30px;
   img{
-    width: 40px;
+    width: 80px;
     vertical-align: middle;
   }
   h1{

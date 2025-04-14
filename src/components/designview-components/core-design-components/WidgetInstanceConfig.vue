@@ -1,5 +1,10 @@
 <template>
   <div class="control-config">
+    <div class="title_container" v-show="curComponent">
+      <div class="title">
+        {{curComponent?.name}}组件
+      </div>
+    </div>
     <custom-schema-template
         v-if="curComponent"
         :component="curComponent"
@@ -62,5 +67,27 @@ const pageComponentFields={
 }
 .widget-config-source{
   padding:10px;
+}
+.title_container{
+  width: 80%;
+  height:50px;
+  line-height: 50px;
+  text-align: center;
+  margin: 0 auto;
+  font-size: 18px;
+  font-weight:700;
+  font-family: "微软雅黑", "Microsoft YaHei", "思源黑体", "Source Han Sans", sans-serif;
+  color: #00ddfa;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #f2f6f8;
+  box-shadow: 3px 2px rgba(0, 0, 0, 0), 3px 2px 2px 3px rgba(0, 0, 0, 0), 2px 1px 3px 1px rgb(0 0 0 / 8%);
+  .title{
+    width:160px;
+    margin: 0 auto;
+    background: url("@/assets/textdec.jpg") no-repeat;
+    background-position: center center;
+    background-size: 100% auto;
+  }
 }
 </style>

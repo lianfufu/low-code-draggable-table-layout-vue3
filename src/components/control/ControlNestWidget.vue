@@ -65,8 +65,18 @@ watch(()=>props.list,(value, oldValue, onCleanup)=>{
   immediate: true,
   deep:true
 });
-watch(()=>writableList.value,(value)=>{//当数据是为了列表进行服务的，拖进来新的对象的时候，记录要拖入的目标单元格
+watch(()=>writableList.value,(value,oldValue)=>{//当数据是为了列表进行服务的，拖进来新的对象的时候，记录要拖入的目标单元格
+  // if(value&&oldValue&&JSON.parse(JSON.stringify(value))===JSON.parse(JSON.stringify(oldValue))){
+  //   return;
+  // }
+  if(value&&oldValue&&value.length===oldValue.length){
+    return;
+  }
+  if(!oldValue){
+    return;
+  }//上面三处判断均为了确保，初始化的时候不要执行这套逻辑，当增加项的时候再执行此处逻辑
   if(!Number.isNaN(props.cellColIndex)&&!Number.isNaN(props.cellRowIndex)){
+    console.log("是不是重复执行了：",writableList.value,oldValue&&value.length,oldValue.length,oldValue);
     console.log("提前走到了forEach中？",props.cellColIndex,props.cellRowIndex);
     value.forEach(item=>{
       item.rowIndex=props.cellRowIndex;

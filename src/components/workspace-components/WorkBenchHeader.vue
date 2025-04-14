@@ -113,7 +113,7 @@
         <div class="avatarBox__30aQZ">
           <div class="avatar__2DJCA cursor-pointer__34ZCy">
             <div class="defaultAvatarComp__ESnVt mediumSize__1p_xt" style="background: rgb(65, 124, 252);">
-              <div class="avatarName__2ns9w">L</div>
+              <div class="avatarName__2ns9w">Y</div>
             </div>
             <div id=""
                  class="selectBox__3D4kF selectBox__3tblH hasLightTheme__1o8Yp noBackground__3YTQz undefined"

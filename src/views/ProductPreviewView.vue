@@ -8,76 +8,42 @@
     <div class="flex flex-1 bg-#f6f7f9" style="position: relative;">
       <div class="flex w-full h-full">
         <div class="w-200 pl-40 pt-30 pb-30 bg-#fff overflow-auto" style="height: calc(-56px + 100vh);">
-          <div>
-            <div class="relative w-120 h-200 rd-8 mb-20">
-              <iframe class="w-120 h-200 rd-8 border-0 mb-20 pointer-events-none"
-                      src="https://www.sunmao-design.top/sunmao/render/#/pages/render/screenshot?type=wechat&amp;id=1730097774ZvRqPBGO&amp;pageId=1730097774UV0NbCkV"></iframe>
-              <div class="absolute top-0 left-0 w-full rd-8 h-full border-2 border-solid shadow"
-                   style="display: none;"></div>
-            </div>
-          </div>
-          <div>
-            <div class="relative w-120 h-200 rd-8 mb-20">
-              <iframe class="w-120 h-200 rd-8 border-0 mb-20 pointer-events-none"
-                      src="https://www.sunmao-design.top/sunmao/render/#/pages/render/screenshot?type=wechat&amp;id=1730097774ZvRqPBGO&amp;pageId=1730097774o6a6UV4f"></iframe>
-              <div class="absolute top-0 left-0 w-full rd-8 h-full border-2 border-solid shadow"
-                   style="display: none;"></div>
-            </div>
-          </div>
-          <div>
-            <div class="relative w-120 h-200 rd-8 mb-20">
-              <iframe class="w-120 h-200 rd-8 border-0 mb-20 pointer-events-none"
-                      src="https://www.sunmao-design.top/sunmao/render/#/pages/render/screenshot?type=wechat&amp;id=1730097774ZvRqPBGO&amp;pageId=1730097774thKsleOW"></iframe>
-              <div class="absolute top-0 left-0 w-full rd-8 h-full border-2 border-solid shadow" style=""></div>
-            </div>
-          </div>
-          <div>
-            <div class="relative w-120 h-200 rd-8 mb-20">
-              <iframe class="w-120 h-200 rd-8 border-0 mb-20 pointer-events-none"
-                      src="https://www.sunmao-design.top/sunmao/render/#/pages/render/screenshot?type=wechat&amp;id=1730097774ZvRqPBGO&amp;pageId=1730097774u9B3ZZ82"></iframe>
-              <div class="absolute top-0 left-0 w-full rd-8 h-full border-2 border-solid shadow"
-                   style="display: none;"></div>
-            </div>
-          </div>
-          <div>
-            <div class="relative w-120 h-200 rd-8 mb-20">
-              <iframe class="w-120 h-200 rd-8 border-0 mb-20 pointer-events-none"
-                      src="https://www.sunmao-design.top/sunmao/render/#/pages/render/screenshot?type=wechat&amp;id=1730097774ZvRqPBGO&amp;pageId=1730106670eo49eWZc"></iframe>
-              <div class="absolute top-0 left-0 w-full rd-8 h-full border-2 border-solid shadow"
-                   style="display: none;"></div>
-            </div>
-          </div>
-          <div>
-            <div class="relative w-120 h-200 rd-8 mb-20">
-              <iframe class="w-120 h-200 rd-8 border-0 mb-20 pointer-events-none"
-                      src="https://www.sunmao-design.top/sunmao/render/#/pages/render/screenshot?type=wechat&amp;id=1730097774ZvRqPBGO&amp;pageId=1730108990hV9kiYBX"></iframe>
-              <div class="absolute top-0 left-0 w-full rd-8 h-full border-2 border-solid shadow"
-                   style="display: none;"></div>
+          <div v-for="item in pagesData" :key="item.instanceId">
+            <div class="relative w-120 h-200 rd-8 mb-20" style="margin-bottom:60px">
+              <div class="w-120 h-200 rd-8 border-0 pointer-events-none" style="margin-bottom: 60px" @click="changeSelectedPage(item.instanceId)">
+<!--                <SmallScreenPreviewer :global-page-styles="item.globalPageStyles" :widgets="item.widgets" :instance-id="item.instanceId" iframe-height="200px" :iframe-url="item.iframeUrl"/>-->
+                <img style="width:100%" :src="item.pagePreview"/>
+              </div>
+              <div :class="item.instanceId===selectedPageId?'border-2':'border-0'" class="absolute top-0 left-0 w-full rd-8 h-full border-solid shadow"  @click="changeSelectedPage(item.instanceId)"></div>
             </div>
           </div>
         </div>
         <div class="flex-center flex-1 rd-6 p-30">
           <div class="shell">
-            <div><img class="w-full" src="/src/assets/phone-head.jpg"></div>
-            <div style="min-height: 667px; background: rgb(255, 255, 255);">
-              <iframe class="w-375 h-667 border-0"
-                      src="https://www.sunmao-design.top/sunmao/render/#/pages/render/screenshot?type=wechat&amp;id=1730097774ZvRqPBGO&amp;pageId=1730097774thKsleOW"></iframe>
+            <div style="min-height: 700px; background: rgb(255, 255, 255);">
+              <div class="w-375 h-667 border-0">
+                <template v-if="iframeData&&pagesData&&pagesData.length>0">
+                  <template v-for="item in pagesData" :key="item.instanceId">
+                    <SmallScreenPreviewer v-if="iframeData.instanceId===item.instanceId" :global-page-styles="iframeData.globalPageStyles" :widgets="iframeData.widgets" :instance-id="iframeData.instanceId" iframe-height="700px" :iframe-url="iframeData.iframeUrl"/>
+                  </template>
+                </template>
+                <van-empty v-else>数据获取异常</van-empty>
+              </div>
             </div>
-            <div class="relative h-60"></div>
           </div>
         </div>
         <div class="w-370 bg-#fff ml-20 p-40 pt-30 rd-6">
           <div class="pb-20">
             <div class="mb-20"></div>
-            <div class="mb-20 text-20 font-500 c-#000">宠吧小程序</div>
-            <div class="mb-20 text-14 font-500 c-#8693ab">宠物设计小程序</div>
+            <div class="mb-20 text-20 font-500 c-#000">{{iframeData?.productName}}</div>
+            <div class="mb-20 text-14 font-500 c-#8693ab">具体描述：{{iframeData?.productName}}</div>
             <div>
-              <div class="confirm-btn w-180 important-h-40 important-text-14"> 使用模板</div>
+              <div class="confirm-btn w-180 important-h-40 important-text-14" @click="useProduct"> 使用模板</div>
             </div>
           </div>
           <div class="flex items-center pt-25 pb-25 border-t border-b border-t-solid border-b-solid border-#e8eaec"><img
               class="w-85 h-85 mr-10"
-              src="https://img1.baidu.com/it/u=418130785,3372968603&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=511&amp;h=500">
+              src="" alt="待开发">
             <div>
               <div class="mb-10 text-14 font-600 c-#1b2337">手机扫码预览</div>
               <div class="text-12 c-#8693ab">扫码二维码在手机预览模板效果</div>
@@ -97,7 +63,99 @@
 </template>
 
 <script setup lang="ts">
+import {useRoute, useRouter} from "vue-router";
+import {onMounted,ref} from "vue";
+import {useProductStore} from "@/store/templateProductsStore";
+import global from "@/configs/global";
+import {useUserStore} from "@/store/userStore";
+import {useDesignStore} from "@/store/designStatusStore";
 
+const productStore=useProductStore();
+
+const iframeData=ref<{
+  productName:string,
+  instanceId:string,
+  iframeUrl:string,
+  globalPageStyles:any,
+  pagePreview:string,
+  widgets:[]
+}|null>(null);
+
+const pagesData=ref<{
+  productName:string,
+  instanceId:string,
+  iframeUrl:string,
+  globalPageStyles:any,
+  pagePreview:string,
+  widgets:[]
+}[]>([]);
+
+const selectedPageId=ref("");
+
+const route=useRoute();
+let productId:string="";
+onMounted(()=>{
+    productId=route.query.productId;
+    if(!productId)
+      return;
+    const matchedRess = productStore.templateProducts.filter((item:any)=>{
+      return item.id===productId;
+    });
+    if(!matchedRess||matchedRess.length===0)
+      return;
+    const matchedRes = matchedRess[0];
+    console.log("matchedRes",matchedRes);
+
+    iframeData.value={
+      productName:matchedRes.name,
+      instanceId:matchedRes.pages[0].id,
+      iframeUrl:`${global.viewUrl}#/pages/outerUIPage/outerUIPage?instanceId=${matchedRes.pages[0].id}`,
+      globalPageStyles:matchedRes.configs.pageGlobalStyles,
+      widgets:matchedRes.pages[0].pageWidgets,
+      pagePreview:matchedRes.pages[0].pagePreview
+    }
+    selectedPageId.value=iframeData.value.instanceId;
+
+    matchedRes.pages.forEach(item=>{
+      pagesData.value.push({
+        productName:matchedRes.name,
+        instanceId:item.id,
+        iframeUrl:`${global.viewUrl}#/pages/outerUIPage/outerUIPage?instanceId=${item.id}`,
+        globalPageStyles:matchedRes.configs.pageGlobalStyles,
+        widgets:item.pageWidgets,
+        pagePreview:item.pagePreview
+      });
+    });
+  }
+);
+
+function changeSelectedPage(pageInstanceId:string){
+  selectedPageId.value=pageInstanceId;
+  console.log("更改了选择页：",pageInstanceId);
+  iframeData.value = pagesData.value.filter(item=>item.instanceId===pageInstanceId)[0];
+  console.log("当前iframeData的值：",iframeData.value);
+}
+
+//使用模板并跳转
+const router=useRouter();
+const userStore=useUserStore();
+const designStatusStore=useDesignStore();
+function useProduct(){
+
+  //获取iframeData对应的产品的全部信息
+  const matchedRess = productStore.templateProducts.filter((item:any)=>{
+    return item.id===productId;
+  });
+  if(!matchedRess||matchedRess.length===0){
+    console.error("未获取到相应资源！");
+    return;
+  }
+  const matchedRes = matchedRess[0];
+
+  //todo-solved 这里不写添加的逻辑了。因为默认当前游客身份已经实现，加入了2个模板产品。还要写创建日期等信息。
+  userStore.addProduct(matchedRes);
+  router.push(`/designbuild?productId=${productId}`);
+}
 </script>
 
 <style scoped lang="scss">
@@ -113,9 +171,9 @@
   height: 100%;
 }
 
-.pl-40 {
-  padding-left: 40px;
-}
+//.pl-40 {
+//  padding-left: 40px;
+//}
 
 .bg-\#fff, .bg-\#ffffff, .bg-white {
   --un-bg-opacity: 1;
@@ -173,7 +231,7 @@
 }
 
 .pl-40 {
-  padding-left: 40px;
+  padding-left: 100px;
 }
 
 .pb-30 {
@@ -185,7 +243,7 @@
 }
 
 .w-200 {
-  width: 200px;
+  width:380px;
 }
 
 .rd-8 {
@@ -193,15 +251,15 @@
 }
 
 .w-120 {
-  width: 120px;
+  width: 180px;
 }
 
 .h-200 {
-  height: 200px;
+  height: 330px;
 }
 
 .mb-20 {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .relative {
@@ -214,19 +272,23 @@
   border-width: 0px;
 }
 .pointer-events-none {
-  pointer-events: none;
+  pointer-events: auto;
 }
 .shadow {
-  box-shadow: 0 0 rgb(0 0 0 / 0), 0 0 rgb(0 0 0 / 0), 0 0 rgb(0 0 0 / 0);
+  box-shadow: 5px 10px rgba(0, 0, 0, 0), 6px 10px 4px 6px rgba(0, 0, 0, 0), 2px 1px 6px 6px rgb(0 0 0 / 8%);
 }
 .border-solid {
   border-style: solid;
+  border-color: #008efa;
 }
 .rd-8 {
   border-radius: 8px;
 }
 .border-2 {
   border-width: 2px;
+}
+.border-0 {
+  border-width: 0;
 }
 .top-0 {
   top: 0;
@@ -253,10 +315,9 @@
 }
 .shell {
   position: relative;
-  width: 375px;
+  width: 430px;
   background: #ffffff;
   margin: 0 auto;
-  border-radius: 40px;
   overflow: hidden;
   box-shadow: 2px 8px 20px 0px rgba(0, 0, 0, 0.12), 0px 2px 8px 0px rgba(0, 0, 0, 0.04);
 }
@@ -271,13 +332,13 @@ fieldset, img {
   width: 100%;
 }
 .border-0 {
-  border-width: 0px;
+  border-width: 0;
 }
 .w-375 {
-  width: 375px;
+  width: 430px;
 }
 .h-667 {
-  height: 667px;
+  height: 700px;
 }
 .h-60 {
   height: 60px;
@@ -403,4 +464,7 @@ fieldset, img {
   color: rgb(99 108 120 / 1);
 }
 
+.border-2 {
+  border-width: 2px;
+}
 </style>

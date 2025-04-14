@@ -1,6 +1,8 @@
 {
   "name": "导航",
-  "icon":"icon-daohang",
+  "icon":"icon-dibudaohang",
+  "isSymbol": true,
+  "group": "导航组件",
   "fields": {
     "tabList": {
       "label": "导航栏列表",

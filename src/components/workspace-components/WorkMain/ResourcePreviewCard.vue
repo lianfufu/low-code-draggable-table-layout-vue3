@@ -3,19 +3,51 @@
     <div class="bgBoard__3ITDU">
       <div class="head__18GSP"><h3>精选资源</h3>
         <div class="headRight__3nVF4">
-          <span data-type="button" class="blueHoverText__1zYQ2">更多资源</span>
+          <span data-type="button" class="blueHoverText__1zYQ2" style="cursor: pointer" @click="navigateToCommunity">更多资源</span>
         </div>
       </div>
       <div class="resourceWrapperContainer__3SHkX">
-        <!--              <js-frame id="resourceWrapper" src="https://js.design/backend/elements/i_74EfyO43d"></js-frame>-->
-        动态渲染的区域
+        <ul style="list-style: none;margin:0;padding:0;display:flex;">
+          <li v-for="item in communityResource" :key="item.productId" style="margin:5px;width:170px;cursor: pointer" @click="handleNavigateToProductPreview(item.productId)">
+            <div style="border-radius: 10px;width: 150px;display:block;line-height: 0;overflow:hidden;margin:0 auto">
+              <img style="width: 100%" :src="item.cover" />
+            </div>
+            <div style="text-align: center;font-size: 18px;line-height: 18px;margin-top: 10px;padding-left: 5px;padding-right: 5px">{{item.productName}}</div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import {computed, inject, ref} from "vue";
+import lyCover from "@/assets/lyhome.png";
+import gyCover from "@/assets/gyhome.png";
+import {useRouter} from "vue-router";
+import {EnumTabType} from "@/components/workspace-components/EnumTabType";
+import {useUserStore} from "@/store/userStore";
 
+const communityResource=ref([
+  {
+    productName:"旅游吧-设计",
+    productId:`/product?productId=ly001`,
+    cover:lyCover,
+  },
+  {
+    productName:"公园吧-设计",
+    productId:`/product?productId=gy001`,
+    cover:gyCover,
+  }
+]);
+const userStore=useUserStore();
+function navigateToCommunity(){
+  userStore.pickedTabType=EnumTabType.ResourceCommunity;
+}
+const router=useRouter();
+function handleNavigateToProductPreview(path:string){
+  router.push(path);
+}
 </script>
 
 <style scoped lang="scss">
@@ -35,7 +67,7 @@
   background-color: #050505;
   border-radius: 12px;
   box-sizing: border-box;
-  height: 182px;
+  height: 350px;
   padding: 12px 10px 0;
 }
 

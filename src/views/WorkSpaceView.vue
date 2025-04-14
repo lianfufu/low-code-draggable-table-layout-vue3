@@ -2,14 +2,14 @@
   <div class="main lightTheme fixPage__2YBqG" data-preferred-theme="LIGHT" id="dragFileContainer"
        style="user-select: none; position: fixed; inset: 0px;">
     <div class="baseWorkSpacePage__TwT88">
-      <LeftSidePanel v-model="pickedTabType"/>
+      <LeftSidePanel/>
       <WorkSpaceContent :picked-tab="pickedTabType"/>
     </div>
     <div v-show="isShowCreateDropDown"
          class="dropDown__17ejW hasLightTheme__K-mpM scrollListBox__1TwtG hasScrollBar__1c7Bs"
          style="width: 150px; left: 235px; max-height: 108px; top: 46.5px; overflow: auto;">
       <ul style="margin-top: 0px;">
-        <div @click="jumpToCreateWidgetsProject"
+        <div @click="createProject"
              class="optionBox__w6b5q isUndefined__l4Gcb hasLightTheme__K-mpM isSelect__R6kMB hoverBlueBg__3J8-i"
              data-text="创建文件" data-value="project">
           <div data-eventkey=""
@@ -37,7 +37,7 @@
             <div class="textSpace__1MuP6">创建文件</div>
           </li>
         </div>
-        <div @click="jumpToCreateSchemaProject"
+        <div @click="createProject"
              class="optionBox__w6b5q isUndefined__l4Gcb hasLightTheme__K-mpM hoverBlueBg__3J8-i" data-text="创建白板"
              data-value="whiteBoardFile">
           <div data-eventkey=""
@@ -72,7 +72,7 @@
          class="dropDown__17ejW hasLightTheme__K-mpM scrollListBox__1TwtG hasScrollBar__1c7Bs"
          style="width: 96px; right: 10px; max-height: 140px; top: 62.5px; overflow: visible;">
       <ul style="margin-top: 0px;">
-        <div @click="doLogout" class="optionBox__w6b5q isUndefined__l4Gcb hasLightTheme__K-mpM isSelect__R6kMB logout"
+        <div @click="doLogout(userStore)" class="optionBox__w6b5q isUndefined__l4Gcb hasLightTheme__K-mpM isSelect__R6kMB logout"
              data-text="创建文件" data-value="project">
           <li class="active isSelect__R6kMB hasLightTheme__K-mpM"
               style="font-size: 13px; height: 32px; text-align: center">
@@ -81,117 +81,26 @@
         </div>
       </ul>
     </div>
-    <div v-show="isShowFilterFileDropDown" class="dropDown__17ejW hasLightTheme__K-mpM scrollListBox__1TwtG hasScrollBar__1c7Bs"
-         style="width: 140px; right: 200px; max-height: 148px; top: 317.5px; overflow: auto;">
-      <ul style="margin-top: 0px;">
-        <div
-            class="optionBox__w6b5q isUndefined__l4Gcb hasLightTheme__K-mpM hasBottomLine__20PpG isSelect__R6kMB hoverBlueBg__3J8-i"
-            data-text="所有文件" data-value="all">
-          <div data-eventkey=""
-               class="defaultIcon__1dJFM blueFocusVisibleLine__9r-RK optionIcon__3kdke dropOptionIcon__5zUQD"
-               style="pointer-events: auto;">
-            <div class="iconPanel__11XjX isBaseIcon__afPna isSvgIcon__eg-t6" style="pointer-events: none;">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M4.10736 3.57154C4.10736 3.27568 4.34721 3.03583 4.64308 3.03583H10.7145C10.8565 3.03583 10.9927 3.0922 11.0931 3.19256L15.736 7.83118C15.8366 7.93166 15.8931 8.068 15.8931 8.21016V16.4286C15.8931 16.7245 15.6533 16.9643 15.3574 16.9643H4.64308C4.34721 16.9643 4.10736 16.7245 4.10736 16.4286V3.57154ZM5.17879 4.10726V15.8929H14.8217V8.74588L10.7145 8.74594C10.5724 8.74594 10.4362 8.6895 10.3357 8.58903C10.2352 8.48856 10.1788 8.3523 10.1788 8.21022V4.10726H5.17879ZM11.2502 4.86403L14.0632 7.67446L11.2502 7.6745V4.86403Z"
-                      fill="currentcolor"></path>
-              </svg>
-            </div>
-          </div>
-          <li class="active liClass__2h462 haveSelectPoint__2qJA2 isSelect__R6kMB hasLightTheme__K-mpM hasBottomLine__20PpG"
-              style="font-size: 13px; height: 32px;">
-            <div data-eventkey="" class="defaultIcon__1dJFM blueFocusVisibleLine__9r-RK svgIcon__3Uq0-"
-                 style="pointer-events: auto;">
-              <div
-                  class="iconPanel__11XjX isBaseIcon__afPna canHover__2iU7h isSvgIcon__eg-t6 hasChangeColor__2xmCT noOpacity__3_E0k isActive__1lYua blueSvgFill__1dObi"
-                  style="pointer-events: none;">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16"
-                     height="16" viewBox="0 0 16 16" fill="none">
-                  <g opacity="1" transform="translate(0 0)  rotate(0 8 8)">
-                    <g opacity="1" transform="translate(2 2)  rotate(0 6 6)">
-                      <path id="形状结合" fill-rule="evenodd" fill="currentColor"
-                            transform="translate(0.6366642549999142 1.9602259944999787)  rotate(0 5.363335745 4.039774005500001)"
-                            opacity="1"
-                            d="M3.57,5.82L1.59,3.84C1.3,3.55 0.82,3.55 0.53,3.84L0.53,3.84C0.39,3.98 0.31,4.17 0.31,4.37C0.31,4.57 0.39,4.76 0.53,4.9L3,7.37C3.39,7.76 4.02,7.76 4.41,7.37L10.2,1.59C10.49,1.3 10.49,0.82 10.2,0.53L10.2,0.53C10.06,0.39 9.87,0.31 9.67,0.31C9.47,0.31 9.28,0.39 9.14,0.53L3.85,5.82C3.77,5.9 3.65,5.9 3.57,5.82Z "></path>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-            </div>
-            <div class="textSpace__1MuP6">所有文件</div>
-          </li>
-        </div>
-        <div class="optionBox__w6b5q isUndefined__l4Gcb hasLightTheme__K-mpM hoverBlueBg__3J8-i" data-text="设计文件"
-             data-value="1">
-          <div data-eventkey=""
-               class="defaultIcon__1dJFM blueFocusVisibleLine__9r-RK optionIcon__3kdke dropOptionIcon__5zUQD"
-               style="pointer-events: auto;">
-            <div class="iconPanel__11XjX isBaseIcon__afPna isSvgIcon__eg-t6" style="pointer-events: none;">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M17.5173 6.25739L14.6394 9.19189L14.9152 13.5688L2.47021 17.6559L6.23905 5.07659L6.70574 5.10489L10.6443 5.26749L13.501 2.34009L17.5173 6.25739ZM8.59688 12.2252L5.5034 15.3942L13.6636 12.7274L13.409 8.73939L15.8132 6.27869L13.5222 4.03009L11.1251 6.49789L7.11586 6.32109L4.6271 14.6169L7.78898 11.3778C7.55152 10.8013 7.66176 10.1148 8.12558 9.64049C8.74778 9.00409 9.77308 8.98289 10.4095 9.60509C11.0459 10.2274 11.0601 11.2597 10.4378 11.8961C9.94568 12.3994 9.20149 12.5091 8.59688 12.2252Z"
-                      fill="currentcolor"></path>
-              </svg>
-            </div>
-          </div>
-          <li class=" liClass__2h462 haveSelectPoint__2qJA2 hasLightTheme__K-mpM"
-              style="font-size: 13px; height: 32px;">
-            <div class="textSpace__1MuP6">设计文件</div>
-          </li>
-        </div>
-        <div class="optionBox__w6b5q isUndefined__l4Gcb hasLightTheme__K-mpM hoverBlueBg__3J8-i" data-text="白板文件"
-             data-value="2">
-          <div data-eventkey=""
-               class="defaultIcon__1dJFM blueFocusVisibleLine__9r-RK optionIcon__3kdke dropOptionIcon__5zUQD"
-               style="pointer-events: auto;">
-            <div class="iconPanel__11XjX isBaseIcon__afPna isSvgIcon__eg-t6" style="pointer-events: none;">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M3.94 12.33L12.71 3.55C12.9 3.37 13.11 3.24 13.35 3.13C13.57 3.05 13.81 3 14.05 3C14.3 3 14.53 3.05 14.76 3.13C15 3.24 15.2 3.37 15.38 3.55L16.45 4.6C16.63 4.79 16.77 5 16.86 5.23C16.96 5.46 17 5.7 17 5.94C17 6.19 16.96 6.42 16.86 6.65C16.77 6.89 16.63 7.09 16.45 7.27L7.68 16.06L3 17L3.88 12.67L3.94 12.33ZM4.44 15.55L5.65 15.32L7.11 15.01L13.78 8.33999L11.65 6.22L12.45 5.41L14.58 7.54L15.65 6.47C15.94 6.18 15.94 5.7 15.65 5.4L14.58 4.35C14.29 4.06 13.81 4.06 13.52 4.35L4.98 12.88L4.44 15.55Z"
-                      fill="currentcolor"></path>
-              </svg>
-            </div>
-          </div>
-          <li class=" liClass__2h462 haveSelectPoint__2qJA2 hasLightTheme__K-mpM"
-              style="font-size: 13px; height: 32px;">
-            <div class="textSpace__1MuP6">Schema文件</div>
-          </li>
-        </div>
-      </ul>
-    </div>
-    <div v-show="isShowUpdateTimeDropDown" class="dropDown__17ejW hasLightTheme__K-mpM scrollListBox__1TwtG hasScrollBar__1c7Bs"
-         style="width: 100px; right: 100px; max-height: 148px; top: 317.5px; overflow: auto;">
-      <ul style="margin-top: 0px;">
-        <div class="optionBox__w6b5q isUndefined__l4Gcb hasLightTheme__K-mpM hoverBlueBg__3J8-i" data-text="设计文件"
-             data-value="1">
-          <li class="haveSelectPoint__2qJA2 hasLightTheme__K-mpM"
-              style="font-size: 13px; height: 32px; text-align: center">
-            <div class="textSpace__1MuP6">最新更新</div>
-          </li>
-        </div>
-        <div class="optionBox__w6b5q isUndefined__l4Gcb hasLightTheme__K-mpM hoverBlueBg__3J8-i" data-text="白板文件"
-             data-value="2">
-          <li class="haveSelectPoint__2qJA2 hasLightTheme__K-mpM"
-              style="font-size: 13px; height: 32px; text-align: center">
-            <div class="textSpace__1MuP6">最早更新</div>
-          </li>
-        </div>
-      </ul>
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {provide, ref, watch} from "vue";
+import {computed, provide, ref, watch} from "vue";
 import LeftSidePanel from "@/components/workspace-components/LeftSidePanel.vue";
 import WorkSpaceContent from "@/components/workspace-components/WorkSpaceContent.vue";
 import {EnumTabType} from "@/components/workspace-components/EnumTabType";
 import {
   doLogout,
   jumpToCreateSchemaProject,
-  jumpToCreateWidgetsProject
+  jumpToCreateWidgetsProject,
+  addNewProject
 } from "@/components/workspace-components/CreateAndImportProject";
 
+import {useUserStore} from "@/store/userStore";
+const userStore=useUserStore();
+function createProject(){
+  addNewProject(userStore);
+}
 
 const isShowCreateDropDown = ref<boolean>(false);
 const isShowUserAvatarDropDown = ref<boolean>(false);
@@ -203,11 +112,15 @@ provide("changeIsShowCreateDropDown", changeIsShowCreateDropDown);
 provide("changeIsShowUserAvatarDropDown", changeIsShowUserAvatarDropDown);
 provide("changeIsShowFilterFileDropDown", changeIsShowFilterFileDropDown);
 provide("changeIsShowUpdateTimeDropDown", changeIsShowUpdateTimeDropDown);
+provide("isShowUpdateTimeDropDown",isShowUpdateTimeDropDown);
+provide("isShowFilterFileDropDown",isShowFilterFileDropDown);
 
-const pickedTabType = ref<EnumTabType>(EnumTabType.My);
-watch(() => pickedTabType.value, () => {
-  console.log("pickedTabType.value", pickedTabType.value);
-});
+
+const pickedTabType = computed(()=>userStore.pickedTabType);
+// watch(() => pickedTabType.value, () => {
+//   console.log("pickedTabType.value", pickedTabType.value);
+// });
+// provide("pickedTabTypeKey",pickedTabType);
 
 function changeIsShowCreateDropDown() {
   isShowCreateDropDown.value = !isShowCreateDropDown.value;

@@ -1,6 +1,8 @@
 {
   "name": "标题",
   "icon": "icon-biaotizujian",
+  "isSymbol": false,
+  "group": "文本组件",
   "fields": {
     "title": {
       "label": "标题",

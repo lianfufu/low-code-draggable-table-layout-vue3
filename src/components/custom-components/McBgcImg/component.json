@@ -1,6 +1,8 @@
 {
   "name": "背景容器",
-  "icon": "icon-image",
+  "icon": "icon-myrongqi",
+  "isSymbol": true,
+  "group": "布局组件",
   "children": [],
   "fields": {
     "imagePath": {

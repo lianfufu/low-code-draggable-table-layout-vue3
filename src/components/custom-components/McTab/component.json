@@ -1,6 +1,8 @@
 {
   "name": "图文导航",
   "icon":"icon-daohang",
+  "isSymbol": false,
+  "group": "展示组件",
   "fields": {
     "tabList": {
       "label": "导航栏列表",
@@ -26,22 +28,22 @@
         {
           "id": "0001",
           "label": "推荐酒店",
-          "image":"http://127.0.0.1:3000/8c5e7d561f626386d0b554a0189cbfa3.gif"
+          "image":"http://116.205.127.244:3000/82510215072d8c72b126674b4c9285bb.png"
         },
         {
           "id": "0002",
           "label": "热销抢购",
-          "image":"http://127.0.0.1:3000/797feb1ea2a8a0d8c9b2f65758a9ec23.jpg"
+          "image":"http://116.205.127.244:3000/0cb6530265c9bef35e0eded8a37ced46.png"
         },
         {
           "id": "0003",
           "label": "促销门票",
-          "image":"http://127.0.0.1:3000/d18d66b50a8b6e0fd04553aeb18e4b7c.png"
+          "image":"http://116.205.127.244:3000/58e63f973461c33b42bb71b69863de5c.png"
         },
         {
           "id": "0004",
-          "label": "机票团购",
-          "image":"http://127.0.0.1:3000/61dd24d8920a0ab8fab958a23015e80d8cd584ae.jpg@128w_128h_1c_1s.webp"
+          "label": "攻略技巧",
+          "image":"http://116.205.127.244:3000/210a762d7cbb2e26a2c6216fcf603d65.png"
         }
       ]
     },
@@ -159,7 +161,7 @@
         "imgWidth": {
           "label": "图片宽度",
           "type": "number",
-          "value": 85
+          "value": 58
         },
         "imgPadding": {
           "label": "图片间隔",

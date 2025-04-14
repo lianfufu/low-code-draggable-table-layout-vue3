@@ -1,6 +1,8 @@
 {
- "name": "广告轮播",
+ "name": "轮播图",
  "icon": "icon-swiper",
+  "isSymbol": false,
+  "group": "展示组件",
  "component": "McSwiper",
  "fields": {
    "list": {

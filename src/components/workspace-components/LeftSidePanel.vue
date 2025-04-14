@@ -6,7 +6,7 @@
           <div data-eventkey="" class="defaultIcon__1dJFM blueFocusVisibleLine__9r-RK logo__3F8Mi"
                style="pointer-events: auto;">
             <a style="text-decoration: none;display: inline-block;cursor: pointer" aria-placeholder="易搭创首页" @click="navigateToHome">
-              <h1 style="font-size: 18px;color: black;font-weight: bold">易搭创</h1>
+              <h1 style="font-size: 18px;color: black;font-weight: bold">趣易搭</h1>
             </a>
           </div>
         </div>
@@ -57,7 +57,7 @@
             </div>
             <span class="operationText__1dvyZ">最近</span></div>
         </div>
-        <div @click="handleTab" :class="[model===EnumTabType.My?'isActive__cYVWJ blueBg01__2fPgn':'']" class="rowPanel__1T458 optionItem__3q0Yo cursor-pointer__34ZCy"
+        <div @click="handleTab" :class="[userStore.pickedTabType===EnumTabType.My?'isActive__cYVWJ blueBg01__2fPgn':'']" class="rowPanel__1T458 optionItem__3q0Yo cursor-pointer__34ZCy"
              data-type="workspace">
           <div id="workSpaceProcess" class="rowPanel__1T458">
             <div class="prefixIconWrap__i5dUv">
@@ -83,7 +83,7 @@
             </div>
             <span class="operationText__1dvyZ">我的文件</span></div>
         </div>
-        <div @click="handleTab" :class="[model===EnumTabType.KeepUp?'isActive__cYVWJ blueBg01__2fPgn':'']" class="rowPanel__1T458 optionItem__3q0Yo cursor-pointer__34ZCy" data-type="follow">
+        <div @click="handleTab" :class="[userStore.pickedTabType===EnumTabType.KeepUp?'isActive__cYVWJ blueBg01__2fPgn':'']" class="rowPanel__1T458 optionItem__3q0Yo cursor-pointer__34ZCy" data-type="follow">
           <div id="followingUpProcess" class="rowPanel__1T458">
             <div class="prefixIconWrap__i5dUv">
               <div class="wrapperIcon__3sHfR blueFocusVisibleLine__9r-RK iconWrap__3JUjp">
@@ -108,7 +108,7 @@
             <div>0</div>
           </div>
         </div>
-        <div @click="handleTab" :class="[model===EnumTabType.ResourceCommunity?'isActive__cYVWJ blueBg01__2fPgn':'']" class="rowPanel__1T458 optionItem__3q0Yo cursor-pointer__34ZCy" data-type="community">
+        <div @click="handleTab" :class="[userStore.pickedTabType===EnumTabType.ResourceCommunity?'isActive__cYVWJ blueBg01__2fPgn':'']" class="rowPanel__1T458 optionItem__3q0Yo cursor-pointer__34ZCy" data-type="community">
           <div id="communityProcess" class="rowPanel__1T458">
             <div class="prefixIconWrap__i5dUv">
               <div class="wrapperIcon__3sHfR blueFocusVisibleLine__9r-RK iconWrap__3JUjp">
@@ -159,13 +159,14 @@
 <script setup lang="ts">
 import {EnumTabType} from "@/components/workspace-components/EnumTabType";
 import {useRouter} from "vue-router";
+import {useUserStore} from "@/store/userStore";
 
-const model = defineModel<EnumTabType>();
+// const model = defineModel<EnumTabType>();
 const router=useRouter();
 function navigateToHome(){
   router.push("/");
 }
-
+const userStore=useUserStore();
 function handleTab(event){
   console.log(event.target.dataset);
   // if(==='community'){
@@ -174,13 +175,13 @@ function handleTab(event){
   const clickTabText=event.currentTarget.dataset['type'];
   switch (clickTabText) {
     case "follow":
-      model.value=EnumTabType.KeepUp;
+      userStore.pickedTabType=EnumTabType.KeepUp;
       break;
     case "workspace":
-      model.value=EnumTabType.My;
+      userStore.pickedTabType=EnumTabType.My;
       break;
     case "community":
-      model.value=EnumTabType.ResourceCommunity;
+      userStore.pickedTabType=EnumTabType.ResourceCommunity;
       break;
   }
 }

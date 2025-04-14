@@ -1,6 +1,8 @@
 {
   "name": "图片",
   "icon": "icon-image",
+  "isSymbol": false,
+  "group": "展示组件",
   "fields": {
     "imagePath": {
       "label": "图片上传",
